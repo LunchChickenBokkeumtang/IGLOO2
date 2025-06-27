@@ -1,0 +1,404 @@
+
+.calendar-wrapper.active {
+  position: fixed; /* ✅ 고정은 active일 때만! */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+
+
+
+
+.calendar-wrapper {
+  display: none;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 500px;
+  transition: width 0.4s ease;
+  z-index: 9;
+  background: linear-gradient(153.49deg, rgba(11, 11, 11, 0.623) 1.01%, rgba(13, 13, 13, 0.7) 27.74%, rgba(0, 0, 0, 0.7) 47.53%);
+  border: 1px solid silver;
+  overflow: visible;
+  border-radius: 10px;
+}
+.calendar-wrapper.expanded {width: 780px;}
+.calendar-wrapper.expanded #calendar{ position: relative; transition: all 0.8s;}
+#calendar {
+  position: absolute;
+  width: 500px;
+  height: 700px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+.datepicker {position: static; top: auto; left: auto; transform: none; position: relative; height: 79%; margin: auto 0;}
+.datepicker .datepicker-top .titleBox{display: flex; justify-content: space-between; align-items: center;}
+.datepicker .datepicker-top .titleBox .title {font-size: 27px; margin-bottom: 60px; padding-left: 13px;}
+.datepicker .datepicker-top .titleBox .btn-close a{width: 100%; height: 100%;}
+.datepicker .datepicker-top .titleBox .closeBtn{margin-bottom: 80px; transition: all 0.5s;}
+.datepicker .datepicker-top .titleBox .closeBtn:hover{color: #00ebe1; transition: all 0.5s;}
+.datepicker .month-selector {display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px;}
+.datepicker .month-selector .arrow {background: transparent; border: none; cursor: pointer; font-size: 50px; padding-bottom: 5px;}
+.datepicker .month-selector .arrow.n1 {margin-right: 60px;}
+.datepicker .month-selector .arrow.n2 {margin-left: 60px;}
+.datepicker .month-selector .arrow i{color: #999;}
+.datepicker-calendar {display: grid; grid-template-columns: repeat(7,1fr); margin-bottom: 50px;}
+.datepicker-calendar .day {justify-self: center;}
+.datepicker-calendar .date {border: none; border-radius: 50%; margin: 15px; background: transparent; cursor: pointer; font-size: 19px; position: relative; transition: all 0.4s; font-weight: 300;}
+.datepicker-calendar .date::before {position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: #00ebe1; width: 36px; height: 36px; content: ''; border-radius: 50%; opacity: 0; transition: all 0.4s;}
+.datepicker-calendar .date:hover::before {opacity: 0.3;}
+.datepicker-calendar .date:hover {font-weight: 300;}
+/* .datepicker-calendar .date:focus::before {opacity: 0.3;}
+.datepicker-calendar .date:focus {font-weight: bold;} */
+.calendar-time {padding-left: 13px;}
+.calendar-time .title {font-size: 14px; color: #888; margin-bottom: 10px;}
+.calendar-time .text {font-size: 14px; color: #777; margin-left: 20px; margin-right: 5px;}
+.calendar-time .clockBox {display: flex; align-items: center;}
+#clock {font-size: 14px; color: #777;}
+
+
+
+
+.date.faded, .date:disabled {color: #777;}
+.date.faded::before {opacity: 0;}
+.date.faded::before {opacity: 0; background: none;}
+
+
+
+.time-slot {transition: all 0.3s ease;}
+
+
+
+
+
+/* 버튼을 누를 때 */
+#contact-btn:active {
+  box-shadow: none;           /* 그림자 제거 */
+  transform: translateY(2px);  /* 살짝 내려앉는 느낌 */
+}
+
+
+/* 팝업 */
+
+/* 팝업: 캘린더 오른쪽에 절대 위치 */
+#data-detail-popup {
+  padding: 3rem;
+  height: 700px;
+  width: 250px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* .show 붙으면 보이도록 */
+#data-detail-popup.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+  padding-left: 0px;
+}
+
+/* ———————————— 팝업 내부 ———————————— */
+#data-detail-popup .popup-content {
+  color: #fff;                    /* 자식 요소 기본 글자색을 흰색으로 */
+}
+
+#data-detail-popup .popup-content h2 {
+  font-size: 20px;
+  color: #fff;
+  margin: 0 0 6.7rem;
+  opacity: 0;
+}
+
+#data-detail-popup .time-wrapper {
+  max-height: 330px;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: .5rem;
+  padding-right: 30px;
+  width: 90%;
+}
+
+/* 데모용 시간 슬롯 */
+#data-detail-popup .time-slot {
+  padding: 13px 0px;
+  background: transparent;
+  border: 1px solid #00ebe1;
+  border-radius: 5px;
+  color: #fff;
+  opacity: 1;
+  cursor: pointer;
+  text-align: center;
+  transition: all .3s;
+  font-size: 16px;
+  width: 100%;
+}
+#data-detail-popup .time-slot:hover,
+#data-detail-popup .time-slot.selected {
+  background: #00ebe1;
+  color: #000;
+  opacity: 1;
+}
+
+
+/* close 버튼 */
+.calendar-wrapper #data-detail-popup .btn-close {position: absolute; top: 5%; right: 10%; border: none; background: transparent; cursor: pointer; transition: color 0.5s ease;}
+.calendar-wrapper .btn-close:after {content: "\00d7"; font-size: 25pt; opacity: 0;}
+.calendar-wrapper.expanded .btn-close:after {opacity: 1; transition-delay: 0.5s;}
+.calendar-wrapper .btn-close:hover:after {color: #00ebe1;}
+
+
+
+
+/* “Next” 버튼 */
+.calendar-wrapper #contact-btn {float: right; margin-top: 40px; border: none; background: transparent; cursor: pointer; opacity: 0; font-size: 20px; font-weight: 300; pointer-events: none; transition: opacity 0.5s ease;}
+.calendar-wrapper #contact-btn:enabled {opacity: 1; pointer-events: auto;}
+
+/* 스크롤바 (선택) */
+#data-detail-popup .time-wrapper::-webkit-scrollbar { width: 4px; }
+#data-detail-popup .time-wrapper::-webkit-scrollbar-thumb {
+  background:#fff; border-radius:3px;
+}
+#data-detail-popup .time-wrapper::-webkit-scrollbar-thumb:hover {
+  background:#00ebe1;
+}
+
+
+.datepicker-calendar .date.selected {
+  font-weight: 300;             /* 굵게 */
+}
+.datepicker-calendar .date.selected::before {
+  opacity: 0.3 !important;       /* 배경 원 유지 */
+}
+
+/* :focus로 인한 유령 효과 제거 */
+.datepicker-calendar .date.selected:focus {
+  outline: none;
+}
+
+
+/* reservation-popup */
+
+#reservation-detail-popup {display: none;}
+#reservation-detail-popup.active {display: block;}
+
+
+/* X(닫기) 버튼 */
+.calendar-wrapper #calendar .btn-close {
+  position: absolute;
+  top: -7%;
+  right: -5%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.calendar-wrapper #calendar .btn-close.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 부드럽게 나타남 */
+.calendar-wrapper #calendar .btn-close.fade-in {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+
+.reservation-popup {position: fixed; top: 50%; left: 50%; min-width: auto; z-index: 1000; transform: translate(-50%,-50%);}
+.reservation-popup .popup-content {padding: 50px 70px; box-sizing: border-box; background: #212121; border-radius: 20px; position: relative;}
+.reservation-popup .popup-content .btn-close {position: absolute; top: 1%; right: 3%; border: none; background: transparent; cursor: pointer;}
+.reservation-popup .popup-content .btn-close:after {content: "\00d7"; font-size: 25pt;}
+.reservation-popup .popup-content .btn-close:hover:after {color: #00ebe1;}
+.reservation-popup .popup-content .title {font-size: 35px; margin-bottom: 5px;}
+.reservation-popup .popup-content .text {font-size: 14px; margin-bottom: 40px; letter-spacing: 0%; font-weight: 100;}
+.reservation-popup .popup-content .detail-info {margin-bottom: 20px; display: flex;}
+.reservation-popup .popup-content .detail-info p {color: #00ebe1;}
+.reservation-popup .popup-content .detail-info p strong{font-size: 15px; font-weight: 300;}
+.reservation-popup .popup-content .detail-info .time {margin-left: 20px;}
+.reservation-popup .popup-content #reservation-form .form-group input {background-color: transparent; border: 0; border-bottom: 1px #fff solid; width: 100%; margin-bottom: 20px; padding: 15px 0; padding-left: 10px; position: relative; transition: all 0.3s ease-in-out;}
+.reservation-popup .popup-content #reservation-form .form-group input:hover , .reservation-popup .popup-content #reservation-form .form-group input:focus {border-bottom: 1px solid #00ebe1;}
+.reservation-popup .popup-content #reservation-form .form-group .inputBox {display: flex; justify-content: space-between; width: 100%; position: relative;}
+.reservation-popup .popup-content #reservation-form .form-group .inputInner {width: 100%}
+.reservation-popup .popup-content #reservation-form .form-group .inputInner #res-firstName {width: 95%;}
+.reservation-popup .popup-content #reservation-form .form-group .inputInner #res-lastName {width: 95%; float: right;}
+.reservation-popup .popup-content #reservation-form .form-group .inputBox .inputInner02 {width: 30%;}
+.reservation-popup .popup-content #reservation-form .form-group .inputBox .inputInner03 {width: 65%;}
+.reservation-popup .popup-content #reservation-form .form-group input:focus, .reservation-popup .popup-content #reservation-form .form-group input:valid {outline: 0;}
+
+.checkBox {margin: 30px 0;}
+.checkBox .form-checkbox {margin-bottom: 20px;}
+.checkBox .form-checkbox label {margin-left: 10px; font-weight: 100;}
+
+
+
+.consent-checkbox {-webkit-appearance: none; appearance: none; width: 20px; height: 20px; margin: 0; vertical-align: middle; cursor: pointer; border: 1px solid #fff; border-radius: 50%; background-color: transparent; position: relative;}
+.consent-checkbox:checked {background-color: #000; border-color: #fff;}
+.consent-checkbox:checked:after {content: ''; position: absolute; top: -8px; left: 8px; width: 6px; height: 20px; border: solid #00ebe1; border-width: 0 2px 2px 0; transform: rotate(45deg);}
+.consent-checkbox:checked:focus {outline: none;}
+
+
+.popup-content .btn-confirm {margin-top: 30px; width: 100px; height: 50px; background: transparent; border-radius: 17px; border: 1px solid #00ebe1; cursor: pointer; transition: all 0.5s;}
+.popup-content .btn-confirm:hover {background: rgba(0, 235, 225, 0.8);}
+
+
+
+
+
+
+/* 버튼 누르면 배경 어두워지게하기 */
+.contactUsInner.dimmed > *:not(.calendar-wrapper) {
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* 클릭 방지 */
+}
+
+.contactUsInner.dimmed > .calendar-wrapper {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.contactUsInner .dimmed-item {
+  opacity: 0.2;
+  transition: opacity 0.3s ease;
+}
+
+
+
+
+
+
+
+
+
+
+/*캘린더  반응형 */
+/* 1024 */
+@media screen and (max-width: 1024px) {
+  .calendar-wrapper {width: 450px; height: 550px;}
+  #calendar {width: 450px; height: 550px;}
+  .datepicker {height: 85%;}
+  .datepicker .datepicker-top .titleBox .title {font-size: 24px; margin-bottom: 20px;}
+  .calendar-wrapper #calendar .btn-close {top: -3%; right: 0;}
+  .datepicker .month-selector {font-size: 20px;}
+  .datepicker .month-selector .arrow {font-size: 38px;}
+  .datepicker-calendar {margin-bottom: 15px; gap: -10px;}
+  .calendar-time .title {margin-bottom: 3px;}
+  #data-detail-popup {height: 500px;}
+  #data-detail-popup .popup-content h2 {margin-bottom: 70px;}
+  #data-detail-popup .time-wrapper {max-height: 280px;}
+  #data-detail-popup.show{background: #000;}
+  .calendar-wrapper.expanded {width: 720px;}
+  .reservation-popup {width: 70%; height: 50%; transform: translate(-50%, -78%);}
+  .reservation-popup .popup-content {padding: 40px 40px 20px 40px;}
+  .reservation-popup .popup-content .text {margin-bottom: 25px;}
+  .reservation-popup .popup-content .title {font-size: 32px;}
+  .reservation-popup .popup-content .text {font-size: 14px;}
+  .reservation-popup .popup-content #reservation-form .form-group input {margin-bottom: 10px;}
+  .checkBox .form-checkbox label {font-size: 15px;}
+  .checkBox {margin: 10px 0;}
+  .popup-content .btn-confirm {margin-top: 0; width: 80px; height: 40px; border-radius: 10px;}
+}
+/* 768 */
+@media screen and (max-width: 768px) {
+  .calendar-wrapper.expanded {width: 670px;}
+  #data-detail-popup {width: 200px; padding: 2rem; margin-top: 1px;}
+  #data-detail-popup .popup-content h2 {margin-bottom: 100px;}
+  .reservation-popup {width: 85%; transform: translate(-50%, -60%);}
+  .reservation-popup .popup-content .text {font-size: 13px; width: 64%; margin-top: 10px; line-height: 1.4;}
+  .checkBox .form-checkbox {margin-bottom: 10px; }
+  .checkBox {margin: 20px 0px;}
+  .reservation-popup .popup-content #reservation-form .form-group input {margin-bottom: 5px; padding: 12px 0px; padding-left: 5px;}
+  .consent-checkbox {width: 15px; height: 15px; margin-bottom: 1px;}
+  .checkBox .form-checkbox label {margin-left: 5px;}
+  .consent-checkbox:checked:after {width: 7px; height: 13px; top: -6px; left: 4px;}
+  .reservation-popup .popup-content .btn-close:after {font-size: 24pt;}
+  .reservation-popup .popup-content .btn-close {right: 5%;}
+}
+
+
+/* 480 */
+@media screen and (max-width: 480px) {
+  .calendar-wrapper.expanded {width: 380px;}
+  .calendar-wrapper {width: 375px; height: 500px;}
+  #calendar {width: 370px; height: 500px;}
+  .datepicker-calendar .date {font-size: 16px; margin: 13px;}
+  .datepicker-calendar .day {font-size: 15px;}
+  .datepicker-calendar {margin-bottom: 5px;}
+  .calendar-wrapper.active { width: 375px;}
+  #data-detail-popup {position: absolute; top: 79.5%; left: 2%; transform: translateX(50%); width: 360px; height: 90px; border-radius: 10px;  padding: 1.5rem; overflow: hidden; outline: none !important; box-sizing: border-box; }
+  #data-detail-popup .popup-content h2 { display: none;}
+  #data-detail-popup .time-wrapper {
+    margin-left: 30px;
+    max-height: 300px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 80%;
+    outline: none !important;
+    border: none;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    display: flex;
+    min-width: 0;
+    white-space: nowrap; /* ✅ 줄바꿈 방지 */
+  }
+  .time-wrapper {
+    gap: 0;
+  }
+  
+  .time-slot {
+    margin-right: 10px;
+  }
+  
+  .time-slot:last-child {
+    margin-right: 0;
+  }
+  #data-detail-popup .time-slot {
+    font-size: 13px;
+    min-width: 80px;
+    padding: 5px 8px;
+  }
+
+  #data-detail-popup .time-wrapper {
+    gap: 0px;
+  }
+  .time-wrapper::-webkit-scrollbar {
+    height: 3px;
+  }
+  
+  .time-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .time-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 4px;
+  }
+  .calendar-wrapper #data-detail-popup .btn-close {top: 0; right: 5%;}
+  .calendar-wrapper #contact-btn {margin-top: 5px; font-size: 15px;}
+  .calendar-wrapper .btn-close:after {font-size: 20pt;}
+  .reservation-popup .popup-content .title {font-size: 22px;}
+  .reservation-popup .popup-content .btn-close:after {font-size: 21pt;}
+  .reservation-popup .popup-content .text {font-size: 11px; width: 92%;}
+  .reservation-popup .popup-content .detail-info p {font-size: 14px; font-weight: 300;}
+  .reservation-popup .popup-content .detail-info .time {font-size: 14px; font-weight: 300;}
+  .reservation-popup .popup-content .detail-info p strong {font: 14px; font-weight: 100;}
+  .reservation-popup .popup-content #reservation-form .form-group input::placeholder {font-size: 10px;}
+  .checkBox .form-checkbox label {font-size: 12px;}
+  .checkBox .form-checkbox {margin-bottom: 5px;}
+  .popup-content .btn-confirm {position: absolute; right: 9%; bottom: 7%;}
+
+} 

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="img/favicon/faviconIgloo.png">
+  <link rel="apple-touch-icon" href="img/favicon/faviconIgloo.png"/>
+  <title>Service</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/scrolla.jquery.min.js"></script>
+  <script src="js/splitting.min.js"></script>
+  <script src="https://unpkg.com/splitting/dist/splitting-cells.min.js"></script>
+</head>
+<body>
+    <header class="header scrolled">
+        <div class="inner">
+            <h1 class="logo"><a href="../home/index.html"><img src="img/header/iglooLogo-final.png.png" alt=""></a></h1>
+            <h1 class="logoonly"><a href="../home/index.html"><img src="img/header/iglooLogo-finalmini.svg" alt=""></a></h1>
+            <nav>
+                <ul>
+                    <li><a href="../solutions/responsive.html"><p class="text en1">Solutions</p></a></li>
+                    <li><a href="../service/responsive.html"><p class="text en1">Services</p></a></li>
+                    <li><a href="#"><p class="text en1">Newsroom</p></a></li>
+                    <li><a href="#"><p class="text en1">Insights</p></a></li>
+                    <li><a href="#"><p class="text en1">About Us</p></a></li>
+                    <li><a href="../contact/responsive.html"><p class="text en1">Contact</p></a></li>
+                </ul>
+            </nav>
+            <div class="SearchBox">
+                <p class="imgBox"><a href="#"><img src="img/header/headerSearch.png" alt="Search"></a></p>
+                <p class="imgBox"><a href="#"><img src="img/header/headerGlobe.png" alt="Globe"></a></p>
+                <div class="audio-controls">
+                    <audio id="backgroundAudio" autoplay loop muted>
+                        <source src="bgSound/sound_mp3.mp3" type="audio/mp3">
+                        브라우저가 오디오를 지원하지 않습니다.
+                    </audio>
+                    <div class="volume-control">
+                        <a href="#"><img src="img/header/sound_off.png" alt="Sound Icon" id="soundToggle"></a>
+                    </div>
+                    <div class="soundwave-container" id="equalizer" style="display: none;">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <span class="bar bar--top"></span>
+                    <span class="bar bar--middle"></span>
+                    <span class="bar bar--bottom"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="mobile-nav" id="mobileNav">
+        <ul>
+            <li><a href="../solutions/responsive.html">Solutions</a></li>
+            <li><a href="../service/responsive.html">Services</a></li>
+            <li><a href="#">Newsroom</a></li>
+            <li><a href="#">Insights</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="../contact/responsive.html">Contact</a></li>
+        </ul>
+    </nav>
+  <div id="custom-alert" class="custom-alert">
+        <div class="alert-box">
+            <p id="alert-message">알림 메시지</p>
+            <button id="alert-ok">확인</button>
+        </div>
+  </div> 
+  <div class="wrap">
+        <section class="visual">
+            <div class="stars-container" id="starsContainer"></div>
+            <div class="container">
+                <div class="inner">
+                    <div class="title">
+                        <p class="our en4" data-splitting>OUR</p>
+                        <p class="solution en2" data-splitting>SERVICE</p>
+                    </div>
+                    <div class="textBox">
+                        <div class="left">
+                            <h3 class="high en2">Security Operations for Business Focus</h3>
+                            <p class="middle en1">This Curveperation protects the information assets of organizations and companies from security routers, and provides operation and management of security equipment and solutions so that customers can focus on their core businesses. </p>
+                            <span class="low">이글루코퍼레이션은 보안 위협으로부터 기관 및 기업의 정보자산을 효율적으로 보호하고, 고객이 자신의 핵심 비즈니스에 집중할 수 있도록 보안 장비 및 솔루션에 대한 운영 및 관리를 제공합니다. </span>
+                        </div>
+                        <div class="right">
+                            <h3 class="high en2">Integrated Monitoring & Specialized <br class="brNone">Security Services</span></h3>
+                            <p class="middle en1">In addition to security control (dispatch, remote, cloud) services, surface management services specializing in security control, information security, remote intelligence (CTI), and anything mail simulation training, we can help you strengthen the security posture of your organization through various services.</p>
+                            <span class="low">보안관제(파견, 원격, 클라우드) 서비스, 보안관제 특화 공격 표면 관리 서비스, 정보보안 컨설팅, 위협인텔리전스(CTI), 악성메일 모의훈련 등 다양한 서비스를 통해 조직 전반의 보안 태세를 강화할 수 있도록 지원합니다.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bgBox">
+                <p><img src="img/visual/service4-3.png" alt=""></p>
+            </div>
+            <div class="gradient-transition"><!-- 경계용 그라데이션 --></div>
+        </section>
+  </div>
+  <section class="svgLine">
+    <div class="svg-wrapper">
+      <svg
+        version="1.1"
+        id="Layer_2"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 1755.8 1630.59"
+        style="enable-background:new 0 0 1755.8 1630.59;"
+        xml:space="preserve"
+      >
+        <!-- 1) static 레이어 -->
+        <path
+          class="static"
+          d="M1729.91,32.08
+             c0,0-754.93,10.69-1109.94,71.64
+             c0,0-580.63,93.03-595.6,247.01
+             c0,0-40.63,121.9,442.69,225.62
+             c0,0,484.4,110.14,657.62,171.09
+             c0,0,479.76,146.5,170.38,331.13
+             c0,0-68.79,68.79-579.92,171.45
+             c0,0-558.18,129.39-291.92,280.16
+             c0,0,153.98,66.08,413.82,100.41"
+        />
+        <!-- 2) animated 레이어 -->
+        <path
+          class="animated"
+          d="M1729.91,32.08
+             c0,0-754.93,10.69-1109.94,71.64
+             c0,0-580.63,93.03-595.6,247.01
+             c0,0-40.63,121.9,442.69,225.62
+             c0,0,484.4,110.14,657.62,171.09
+             c0,0,479.76,146.5,170.38,331.13
+             c0,0-68.79,68.79-579.92,171.45
+             c0,0-558.18,129.39-291.92,280.16
+             c0,0,153.98,66.08,413.82,100.41"
+        />
+        <!-- 3) glow 레이어 -->
+        <path
+          class="glow"
+          d="M1729.91,32.08
+             c0,0-754.93,10.69-1109.94,71.64
+             c0,0-580.63,93.03-595.6,247.01
+             c0,0-40.63,121.9,442.69,225.62
+             c0,0,484.4,110.14,657.62,171.09
+             c0,0,479.76,146.5,170.38,331.13
+             c0,0-68.79,68.79-579.92,171.45
+             c0,0-558.18,129.39-291.92,280.16
+             c0,0,153.98,66.08,413.82,100.41"
+        />
+      </svg>
+
+      <a class="start-marker" href="#">
+        <div class="marker-label">
+          <p class="text en2">
+            Founding of<span class="en2">IGLOO</span>
+          </p>
+        </div>
+        <div class="marker-circle"></div>
+      </a>
+    </div>
+  </section>
+  <footer>
+    <div class="imgBox">
+        <img src="img/footer/speer.png" alt="speer">
+    </div>
+    <div class="footerWrap">
+        <ul class="corp en1">
+            <li>
+                <a href="#">
+                    <p>LINKEDIN</p>
+                    <svg viewBox="0 0 16 16" class="bi bi-whatsapp" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <p>FACEBOOK</p>
+                    <svg
+                    viewBox="0 0 320 512"
+                    height="1.3em"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="svgIcon"
+                    fill="white">
+                    <path
+                      d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"
+                    ></path>
+                  </svg>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <p>YOUTUBE</p>
+                    <svg
+                    viewBox="0 0 576 512"
+                    fill="white"
+                    height="1.6em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"
+                    ></path>
+                  </svg>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+        <div class="newsLetter">
+            <p class="text1">NEWSLETTER</p>
+            <p class="text2">You read this far, might as well sign up.</p>
+            <div class="write">
+                <input class="textLogin" type="text" id="inboxing1" name="email" placeholder="First name"/>
+                <input class="textLogin" type="password" id="inboxing2" password="email" placeholder="team@igloo.com"/>
+                <div class="buttonBox">
+                    <button id="loginButton" type="text">
+                        <span class="login">Sign up</span>
+                        <span class="complete">complete!</span>
+                        <span class="loader-container">
+                            <span class="loader"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="imgLine">
+            <img src="img/footer/Vector 131.png" alt="Vector 131">
+        </div>
+        <ul class="navigation">
+            <li><a href="../solutions/responsive.html">솔루션</a></li>
+            <li><a href="../service/responsive.html">서비스</a></li>
+            <li><a href="#">뉴스룸</a></li>
+            <li><a href="#">보안정보</a></li>
+            <li><a href="#">기업소개</a></li>
+            <li><a href="../contact/responsive.html">문의하기</a></li>
+        </ul>
+        <div class="footerBottom">
+            <div class="footerLogo">
+                <a href="#">
+                    <img src="img/footer/IGLOO2.png" alt="IGLOO2">
+                    <img src="img/footer/black.png" alt="black">
+                    <img src="img/footer/IGLOO.png" alt="IGLOO1">
+                </a>
+            </div>
+            <div class="number">
+                <p>Tel : 02-3452-8814</p>
+                <p>Fax : 02-3452-8815</p>
+                <p class="copy">©IGLOO Corp. ALL RIGHTS RESERVED.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="js/scrolla.jquery.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/gsap/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap/dist/ScrollTrigger.min.js"></script>
+  <!-- our script -->
+  <script src="js/script.js"></script>
+</body>
+</html>
