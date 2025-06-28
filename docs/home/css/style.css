@@ -62,6 +62,8 @@ html { background: #000; scroll-behavior: smooth;}
 }
 
 * {font-family: 'Pretendard',sans-serif; color: #fff; letter-spacing: -0.02em;}
+
+
 html, body {
   overscroll-behavior-y: none;
 }
@@ -236,7 +238,7 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
 
 /* header -> 햄버거 */
 .mobile-menu-toggle {display: none;flex-direction: column; gap: 3px; cursor: pointer; padding-top: 5%; box-sizing: border-box;}
-.mobile-menu-toggle span {display: block; width: 11px; height: 1px; background: #fff; transition: all 0.3s ease;}
+.mobile-menu-toggle span {display: block; width: 30px; height: 1px; background: #fff; transition: all 0.3s ease;}
 .mobile-nav {
   position: fixed;
   top: 38px;
@@ -269,8 +271,8 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
 @media screen and (max-width: 1024px) {
   header{height: 62px;}
   header .inner h1 img{width: 41px;}
-  header .inner nav ul{font-size: 13px;}
-  header .inner nav ul li{margin: 0 17px;}  
+  header .inner nav ul{font-size: 11px;}
+  header .inner nav ul li{margin: 0 20px;}  
   header .inner .SearchBox .imgBox img{width: 19px; height: 19px;}
   header .inner .SearchBox .imgBox:nth-child(2){margin-left: 16px;}
   header .inner .SearchBox .audio-controls {display: none;}
@@ -278,113 +280,137 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
 /* 768 */
 @media screen and (max-width: 768px) {
   header .inner h1 {width: 39px;}
-  header .inner h1 a {width: 100%; display: inline-block;}
+  header .inner h1 a {width: 100%; display: inline-block; height: 100%;}
   header .inner h1 img{width: 100%;}
   header .inner nav ul{font-size: 9px;}
-  header .inner nav ul li{margin: 0 11px;}
+  header .inner nav ul li{margin: 0 12px;}
   header .inner nav ul li .text {font-size: 12px;}
   header .inner .SearchBox .imgBox img{width: 16px; height: 16px;}
   header .inner .SearchBox .imgBox:nth-child(2){margin-left: 10px;}
+  header .inner .SearchBox .audio-controls {display: none;}
 }
 /* 480 */
 @media screen and (max-width: 480px) {
   /* 로고 글씨없는버전으로 변경 */
   header .inner h1.logo {display: none;}
-  header .inner h1.logoonly {display: inline; position: absolute; left: 5%; top: 50%; transform: translateY(-50%);}
+  header .inner h1.logoonly {display: inline; position: absolute; left: 5%; top: 60%; transform: translateY(-60%); width: 50px; height: 50px;}
   
-  header{height: 39px;}
-  header .inner h1 img{width: 33px;}
+  header{height: 60px;}
+  header .inner h1 img{width: 50px;}
   header .inner nav ul{display: none;}
   header .inner nav ul li{margin: 0 7px;}
-  header .inner .SearchBox {right: 6%; width: 11%;}
-  header .inner .SearchBox .imgBox img{width: 13px; height: 13px;}
-  header .inner .SearchBox .imgBox:nth-child(2){margin-left: 7px;}
-  /* 480로고 오른쪽 텍스트 */
-  header .logoonly a::after {content: 'IGLOO'; width: auto; height: 32.3px; position: absolute; top: 50%; left: 82%; transform: translateY(-50%); line-height: 32.3px; font-size: 12px;}
+  /* header .inner .SearchBox .imgBox img{width: 13px; height: 13px;}
+  header .inner .SearchBox .imgBox:nth-child(2){margin-left: 7px;} */ /* 숨김처리 */
 
-    /* 햄버거 */
-    .mobile-menu-toggle {
-      display: flex;
-      z-index: 1001;
-      margin-left: 8px;
+  /* 480로고 오른쪽 텍스트 */
+  header .logoonly a::after {content: 'IGLOO'; width: auto; height: 32.3px; position: absolute; top: 50%; left: 120%; transform: translateY(-50%); line-height: 32.3px; font-size: 24px;}
+
+
+  /* 햄버거 */
+  .mobile-menu-toggle {
+    display: block;
+    z-index: 1001;
+    width: 30px; height: 30px;
+  }
+  .bar {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  /* 각 바 초기 위치 */
+  .bar--top {
+    top: 25%;
+  }
+  
+  .bar--middle {
+    top: 50%;
+  }
+  
+  .bar--bottom {
+    top: 75%;
+  }
+  
+  /* X 모양 전환 */
+/* X 모양 전환 (percent 기준에 맞게 수정) */
+.mobile-menu-toggle.active .bar--top {
+  top: 55%;
+  transform: rotate(45deg) scale(1.3);
+}
+
+.mobile-menu-toggle.active .bar--middle {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active .bar--bottom {
+  top: 55%;
+  transform: rotate(-45deg) scale(1.3);
+}
+
+
+
+  
+  .mobile-nav.active {
+    display: block;
+  }
+  
+    /* 모바일 메뉴: 오른쪽에서 왼쪽으로 슬라이드 */
+    .mobile-nav {
+      position: fixed;
+      top: 60px;
+      right: 0;
+      width: 0;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+      opacity: 0;
+      transition: width 0.4s ease, opacity 0.3s ease;
+      z-index: 9999;
     }
-    .bar {
-      position: absolute;
-      width: 20px;
-      height: 2px;
-      background-color: #fff;
+  
+    .mobile-nav.active {
+      width: 100%; /* 너비 설정 */
+      opacity: 1;
+    }
+  
+    .mobile-nav ul {
+      padding: 30px 33px;
+      margin: 0;
+    }
+  
+    .mobile-nav ul li {
+      white-space: nowrap;
+      margin-bottom: 33px;
+    }
+  
+
+
+
+    .mobile-nav ul li a {
+      color: #fff;
+      opacity: 0.85;
+      text-decoration: none;
+      font-size: 35px;
       transition: all 0.3s ease;
     }
     
-    /* 각 바 초기 위치 */
-    .bar--top {
-      top: 35%;
-    }
-    
-    .bar--middle {
-      top: 55%;
-    }
-    
-    .bar--bottom {
-      top: 75%;
-    }
-    
-    /* X 모양 전환 */
-  /* X 모양 전환 (percent 기준에 맞게 수정) */
-  .mobile-menu-toggle.active .bar--top {
-    top: 55%;
-    transform: rotate(45deg) scale(1.3);
-  }
-  
-  .mobile-menu-toggle.active .bar--middle {
-    opacity: 0;
-  }
-  
-  .mobile-menu-toggle.active .bar--bottom {
-    top: 55%;
-    transform: rotate(-45deg) scale(1.3);
-  }
-  
-    .mobile-nav.active {
-      display: block;
-    }
-    
-      /* 모바일 메뉴: 오른쪽에서 왼쪽으로 슬라이드 */
-      .mobile-nav {
-        position: fixed;
-        top: 39px;
-        right: 0;
-        width: 0;
-        height: 100%;
-        background: #000;
-        overflow: hidden;
-        opacity: 0;
-        transition: width 0.4s ease, opacity 0.3s ease;
-        z-index: 9999;
-      }
-    
-      .mobile-nav.active {
-        width: 100%; /* 너비 설정 */
-        opacity: 1;
-      }
-    
-      .mobile-nav ul {
-        padding: 80px 33px;
-        margin: 0;
-      }
-    
-      .mobile-nav ul li {
-        margin-bottom: 33px;
-      }
-    
-      .mobile-nav ul li a {
-        color: #fff;
-        opacity: 0.85;
-        text-decoration: none;
-        font-size: 25px;
-        transition: all 0.3s ease;
-      }
-      .mobile-nav ul li a:active {color: #00ebe1;}
+    /* 모바일에서 링크 클릭 시 포커스 박스 삭제 및 색깔 변경 */
+    .mobile-nav ul li a {-webkit-tap-highlight-color: transparent;}
+    .mobile-nav ul li a:focus {outline: none; box-shadow: none; color: #00ebe1;}
+    .mobile-nav ul li a:active {color: #00ebe1; outline: none;}
+    .mobile-nav ul li a::-moz-focus-inner {border: 0;} /* 파이어폭스 전용 */
+
+    /* 모바일에서 서치박스 숨김 */
+    header .inner .SearchBox > .imgBox {display: none;}
+    /* 서치박스 숨기면 햄버거 메뉴 height가 안잡히니까 서치박스에 height 추가 */
+    header .inner .SearchBox {height: 30px;}
+    /* search 서치, globe 글로브 아이콘 추가 */
+    .mobile-nav ul .hamIcon {width: 20%;}
+    .mobile-nav ul .hamIcon div {display: flex; justify-content: space-between; flex-wrap: nowrap; width: 100%; margin: 0 auto;}
+    .mobile-nav ul .hamIcon div .imgBox img {width: 30px; aspect-ratio: 1/1;}
+
 } 
 
 

@@ -84,7 +84,7 @@ html,body {overflow-x: hidden; overflow-y: auto;}
 
 /* Header */
 header {position: fixed; width: 100%; height: 73px; z-index: 999; top: 0px; transition: all 0.5s ease-in-out; overflow: hidden; background: transparent;}
-header.active{background: #000;}
+header.active {background: #000;}
 header .inner {max-width: 1610px; margin: 0 auto;  height: 100%; position: relative;transition: all 0.5s ease-in-out; align-content: center; opacity: 0;}
 header .inner .logo {position: absolute; left: 5%; top: 50%; transform: translateY(-50%);}
 header .inner h1 {width: 50px;}
@@ -310,7 +310,7 @@ header.hide {
 /* 768 */
 @media screen and (max-width: 768px) {
   header .inner h1 {width: 39px;}
-  header .inner h1 a {width: 100%; display: inline-block;}
+  header .inner h1 a {width: 100%; display: inline-block; height: 100%;}
   header .inner h1 img{width: 100%;}
   header .inner nav ul{font-size: 9px;}
   header .inner nav ul li{margin: 0 12px;}
@@ -323,9 +323,9 @@ header.hide {
 @media screen and (max-width: 480px) {
   /* 로고 글씨없는버전으로 변경 */
   header .inner h1.logo {display: none;}
-  header .inner h1.logoonly {display: inline; position: absolute; left: 5%; top: 50%; transform: translateY(-50%);}
+  header .inner h1.logoonly {display: inline; position: absolute; left: 5%; top: 60%; transform: translateY(-60%); width: 50px; height: 50px;}
   
-  header{height: 56px;}
+  header{height: 60px;}
   header .inner h1 img{width: 50px;}
   header .inner nav ul{display: none;}
   header .inner nav ul li{margin: 0 7px;}
@@ -389,7 +389,7 @@ header.hide {
     /* 모바일 메뉴: 오른쪽에서 왼쪽으로 슬라이드 */
     .mobile-nav {
       position: fixed;
-      top: 56px;
+      top: 60px;
       right: 0;
       width: 0;
       height: 100%;
@@ -437,9 +437,9 @@ header.hide {
     /* 서치박스 숨기면 햄버거 메뉴 height가 안잡히니까 서치박스에 height 추가 */
     header .inner .SearchBox {height: 30px;}
     /* search 서치, globe 글로브 아이콘 추가 */
-    .mobile-nav ul .hamIcon {width: 45%;}
-    .mobile-nav ul .hamIcon div {display: flex; justify-content: space-between; flex-wrap: nowrap; width: 80%; margin: 0 auto;}
-    .mobile-nav ul .hamIcon div .imgBox img {width: 50px; height: 50px;}
+    .mobile-nav ul .hamIcon {width: 20%;}
+    .mobile-nav ul .hamIcon div {display: flex; justify-content: space-between; flex-wrap: nowrap; width: 100%; margin: 0 auto;}
+    .mobile-nav ul .hamIcon div .imgBox img {width: 30px; aspect-ratio: 1/1;}
 
 } 
 
@@ -1012,7 +1012,7 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
 @media screen and (max-width: 480px) {
   .visual .container {padding: 0 6%;}
   .visual .container .inner .top .textBox .support p {font-size: 8px; padding: 3px 8px; border: none; border-radius: 3px;}
-  .visual .container .inner {padding-top: 20%;}
+  .visual .container .inner {padding-top: 25%;}
   .visual .container .inner .top .textBox .bigTitle p {font-size: 32px; line-height: 30px;}
   #questions {margin-left: 4px; padding-bottom: 8px;}
   #questions span {font-size: 30px;}
@@ -1020,7 +1020,6 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
   .visual .container .inner .bottom .boxLine ul .box {flex: 1 1 calc((100% - 2.5em * 2) / 2); max-height: 220px; max-width: 220px;}
   .visual .bgBox .canvasbox {opacity: 0;}
   .visual .bgBox img {opacity: 0.68; transform: translate(-10%,-25%);}
-  .visual .container .inner {padding-top: 20%;}
   .visual .container .inner .top .textBox .bigTitle p {font-size: 31px;}
   .visual .container .inner .bottom .boxLine ul {display: flex; width: 100%; }
   .visual .container .inner .bottom .boxLine {margin-top: 22px;}
@@ -1185,10 +1184,10 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
 }
 /* 480 */
 @media screen and (max-width: 480px) {
-  .contactUs .contactUsInner {width: 90%;}
+  .contactUs .contactUsInner {width: 100%;}
   
   .contactUs .contactUsInner .contactUsTitleBox.motion .tit1 {font-size: 33px;}
-  .contactUs .contactUsInner .contactUsTitleBox.motion .tit2 {font-size: 33px; margin-top: -10px;}
+  .contactUs .contactUsInner .contactUsTitleBox.motion .tit2 {font-size: 39px; margin-top: -10px; line-height: 1;}
   .contactUs .contactUsInner .contactUsTitleBox.motion .tit3 {font-size: 13px; margin-bottom: 20px;}
   .contactUs .contactUsInner .contactUsTitleBox.motion .tit4 {font-size: 11px;}
   .contactUs .contactUsInner .contactUsTitleBox.motion .contactBtn {font-size: 15px; padding: 10px 30px; border-radius: 5px; margin-top: 40px;}
