@@ -2080,6 +2080,22 @@ will-change: transform, opacity;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* fonts */
 .partners .high span, .partners .middle p, .partners .low {color: #000;}
 .partners .high {font-size: 21px; font-weight: 300; display: flex;}
@@ -2333,6 +2349,26 @@ width: calc(100vw * (240/1920)); min-width: 125px; max-width: 240px; aspect-rati
   z-index: 9999;
   font-family: sans-serif;
 }
+
+
+/* styles.css (또는 전역 CSS 파일 맨 아래) */
+#custom-alert {
+  position: fixed;     /* 화면 고정 */
+  top: 0;
+  left: 0;
+  display: none;       /* 기존 코드랑 맞춰서 */
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100000 !important;  /* 최상단에 배치 */
+}
+#custom-alert .popup-content {
+  z-index: 100001;     /* 내부 콘텐츠도 alert 위로 안 가리도록 */
+}
+
+
+
+
 
 .alert-box {
   background: #fff;

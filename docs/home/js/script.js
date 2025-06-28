@@ -1036,7 +1036,7 @@ document.addEventListener('DOMContentLoaded', setupTouchInteractions);
 class TextScramble {
   constructor(el) {
     this.el     = el;
-    this.chars  = "abcdef*//*/__)(&&^*)#@#$tuMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+    this.chars  = "abcdef*//*/__)(&&^*)#@#$rsdctuM4567$%^&*()";
     this.update = this.update.bind(this);
   }
 
@@ -1793,9 +1793,11 @@ window.addEventListener('resize', resizeCanvas);
 
 
 
+// script.js
 
-// 캘린더
+// ——————————————————
 // Dimmed overlay helper functions
+// ——————————————————
 function applyDimmedEffect() {
   const overlay = document.querySelector('.overlay');
   if (overlay) overlay.classList.add('active');
@@ -1806,8 +1808,10 @@ function removeDimmedEffect() {
   if (overlay) overlay.classList.remove('active');
 }
 
-// Main calendar & popup script
 
+// ——————————————————
+// Main calendar & popup script
+// ——————————————————
 document.addEventListener('DOMContentLoaded', () => {
   let currentYear, currentMonth, selectedDate;
   const monthNameSpan = document.querySelector('.month-name');
@@ -1822,8 +1826,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Move reservation popup under <body> to avoid stacking issues
   const reservationPopup = document.getElementById('reservation-detail-popup');
   document.body.appendChild(reservationPopup);
-  const resCloseBtn       = reservationPopup.querySelector('.btn-close');
-  const calendarWrapper   = document.querySelector('.calendar-wrapper');
+  const resCloseBtn     = reservationPopup.querySelector('.btn-close');
+  const calendarWrapper = document.querySelector('.calendar-wrapper');
 
   // Adjust z-index on mobile
   function setPopupLayer() {
@@ -1842,7 +1846,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function initCalendar() {
     const today = new Date();
-    currentYear = today.getFullYear();
+    currentYear  = today.getFullYear();
     currentMonth = today.getMonth();
     prevBtn.addEventListener('click', () => changeMonth(-1));
     nextBtn.addEventListener('click', () => changeMonth(1));
@@ -1852,33 +1856,38 @@ document.addEventListener('DOMContentLoaded', () => {
   function changeMonth(delta) {
     currentMonth = (currentMonth + delta + 12) % 12;
     if (delta === -1 && currentMonth === 11) currentYear--;
-    if (delta === 1 && currentMonth === 0) currentYear++;
+    if (delta === 1  && currentMonth === 0)  currentYear++;
     renderCalendar();
   }
 
   function renderCalendar() {
-    monthNameSpan.textContent =
-      ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][currentMonth]
-      + ' ' + currentYear;
+    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    monthNameSpan.textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
+    // Clear previous days
     Array.from(calendarEl.children).slice(7).forEach(el => el.remove());
-    const firstDay   = new Date(currentYear, currentMonth, 1).getDay();
-    const daysInMonth= new Date(currentYear, currentMonth + 1, 0).getDate();
-    const todayStart= new Date(); todayStart.setHours(0,0,0,0);
 
+    const firstDay    = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const todayStart  = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
+    // Empty slots before 1st
     for (let i = 0; i < firstDay; i++) {
       const span = document.createElement('span');
-      span.classList.add('day','empty');
+      span.classList.add('day', 'empty');
       calendarEl.appendChild(span);
     }
 
+    // Actual days
     for (let d = 1; d <= daysInMonth; d++) {
-      const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
       const btn = document.createElement('button');
       btn.textContent = d;
       btn.className   = 'date';
       if (new Date(dateStr) < todayStart) {
-        btn.classList.add('faded'); btn.disabled = true;
+        btn.classList.add('faded');
+        btn.disabled = true;
       }
       btn.addEventListener('click', onDateClick);
       calendarEl.appendChild(btn);
@@ -1887,31 +1896,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function onDateClick(e) {
     if (window.innerWidth > 480) {
-  document.body.style.overflow = 'hidden';
-}
+      document.body.style.overflow = 'hidden';
+    }
+    // Deselect previous
     document.querySelectorAll('.date.selected').forEach(b => b.classList.remove('selected'));
     e.currentTarget.classList.add('selected');
 
-    const day = e.currentTarget.textContent.padStart(2,'0');
-    selectedDate = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${day}`;
+    const day = e.currentTarget.textContent.padStart(2, '0');
+    selectedDate = `${currentYear}-${String(currentMonth + 1).padStart(2,'0')}-${day}`;
 
+    // Update title
     const titleEl = document.querySelector('.datepicker .titleBox .title');
     if (titleEl) titleEl.textContent = 'Select a Date & Time';
 
+    // Animate close button
     const closeBtn = document.querySelector('.calendar-wrapper #calendar .btn-close');
     if (closeBtn) {
       closeBtn.classList.remove('fade-in');
       closeBtn.classList.add('fade-out');
     }
 
+    // Populate time slots
     const times = ['09:00','10:00','11:00','12:00','13:00','15:00','16:00','17:00'];
     timeWrapper.innerHTML = '';
     times.forEach(t => {
       const b = document.createElement('button');
-      b.type        = 'button';
-      b.className   = 'time-slot';
-      b.dataset.time= t;
-      b.textContent = t;
+      b.type         = 'button';
+      b.className    = 'time-slot';
+      b.dataset.time = t;
+      b.textContent  = t;
       b.addEventListener('click', onTimeSlotClick);
       timeWrapper.appendChild(b);
     });
@@ -1931,6 +1944,7 @@ document.addEventListener('DOMContentLoaded', () => {
     timeNextBtn.disabled = false;
   }
 
+  // Close time popup
   timeCloseBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       timePopup.classList.remove('show');
@@ -1948,10 +1962,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       document.querySelectorAll('.date.selected').forEach(d => d.classList.remove('selected'));
       timeWrapper.innerHTML = '';
-      timeNextBtn.disabled = true;
+      timeNextBtn.disabled  = true;
     });
   });
 
+  // Next button → reservation popup
   timeNextBtn.addEventListener('click', () => {
     const sel = timeWrapper.querySelector('.time-slot.selected');
     if (!sel) return;
@@ -1965,6 +1980,7 @@ document.addEventListener('DOMContentLoaded', () => {
     applyDimmedEffect();
   });
 
+  // Close reservation popup
   resCloseBtn.addEventListener('click', () => {
     reservationPopup.classList.remove('active');
     document.body.style.overflow = 'auto';
@@ -1973,65 +1989,101 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// 팝업 외부 X 버튼 처리
-const outerClose = document.querySelector('.reservation-popup .popup-content .btn-close');
-if (outerClose) outerClose.addEventListener('click', () => {
-  const reservationPopup = document.getElementById('reservation-detail-popup');
-  reservationPopup.classList.remove('active');
-  document.body.style.overflow = 'auto';
-  const titleEl = document.querySelector('.datepicker .titleBox .title');
-  if (titleEl) titleEl.textContent = 'Select a Date';
-  removeDimmedEffect();
-});
 
+// ——————————————————
+// 팝업 외부 X 버튼 처리
+// ——————————————————
+const outerClose = document.querySelector('.reservation-popup .popup-content .btn-close');
+if (outerClose) {
+  outerClose.addEventListener('click', () => {
+    const reservationPopup = document.getElementById('reservation-detail-popup');
+    reservationPopup.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    const titleEl = document.querySelector('.datepicker .titleBox .title');
+    if (titleEl) titleEl.textContent = 'Select a Date';
+    removeDimmedEffect();
+  });
+}
+
+
+// ——————————————————
 // 시계 업데이트
+// ——————————————————
 function updateClock() {
-  const clockEl = document.getElementById('clock'); if (!clockEl) return;
-  const now = new Date();
-  const hours = String(now.getHours()).padStart(2,'0');
-  const minutes = String(now.getMinutes()).padStart(2,'0');
+  const clockEl = document.getElementById('clock');
+  if (!clockEl) return;
+  const now     = new Date();
+  const hours   = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
   clockEl.textContent = `(${hours}:${minutes})`;
 }
 updateClock();
 setInterval(updateClock, 1000);
 
-// 폼 제출 처리
-const reservationForm = document.getElementById('reservation-form');
-if (reservationForm) reservationForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const textInputs = reservationForm.querySelectorAll('input[type="text"]');
-  const checkboxes  = reservationForm.querySelectorAll('.consent-checkbox');
-  let allFilled = true;
-  textInputs.forEach(input => { if (input.value.trim() === '') allFilled = false; });
-  let allChecked = true;
-  checkboxes.forEach(cb => { if (!cb.checked) allChecked = false; });
-  if (!allFilled) return showCustomAlert('모든 항목을 입력해주세요.');
-  if (!allChecked) return showCustomAlert('개인정보 동의에 체크해주시길 바랍니다.');
-  showCustomAlert('제출이 완료되었습니다.', 1000);
-  reservationForm.reset();
-  document.querySelectorAll('.date.selected').forEach(el => el.classList.remove('selected'));
-  const reservationPopup = document.getElementById('reservation-detail-popup');
-  reservationPopup.classList.remove('active');
-  document.body.style.overflow = 'auto';
-});
 
+// ——————————————————
+// 폼 제출 처리
+// ——————————————————
+const reservationForm = document.getElementById('reservation-form');
+if (reservationForm) {
+  reservationForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const textInputs = reservationForm.querySelectorAll('input[type="text"]');
+    const checkboxes = reservationForm.querySelectorAll('.consent-checkbox');
+    let allFilled    = true;
+    textInputs.forEach(input => {
+      if (input.value.trim() === '') allFilled = false;
+    });
+    let allChecked = true;
+    checkboxes.forEach(cb => {
+      if (!cb.checked) allChecked = false;
+    });
+    if (!allFilled)   return showCustomAlert('모든 항목을 입력해주세요.');
+    if (!allChecked)  return showCustomAlert('개인정보 동의에 체크해주시길 바랍니다.');
+    showCustomAlert('제출이 완료되었습니다.', 1000);
+    reservationForm.reset();
+    document.querySelectorAll('.date.selected').forEach(el => el.classList.remove('selected'));
+    const reservationPopup = document.getElementById('reservation-detail-popup');
+    reservationPopup.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  });
+}
+
+
+// ——————————————————
 // 커스텀 alert 함수
+// ——————————————————
 function showCustomAlert(message, duration = 0) {
   const alertEl   = document.getElementById('custom-alert');
+  if (!alertEl) return;
+
+  // 항상 body 맨 끝으로 이동시키고 최상단 z-index 설정
+  document.body.appendChild(alertEl);
+  alertEl.style.zIndex = '100000';
+
   const messageEl = document.getElementById('alert-message');
   const okBtn     = document.getElementById('alert-ok');
-  if (!alertEl || !messageEl || !okBtn) return;
+  if (!messageEl || !okBtn) return;
+
   messageEl.textContent = message;
   alertEl.style.display = 'flex';
+
   if (duration > 0) {
     setTimeout(() => {
       alertEl.style.opacity = '0';
-      setTimeout(() => { alertEl.style.display = 'none'; alertEl.style.opacity = '1'; }, 300);
+      setTimeout(() => {
+        alertEl.style.display = 'none';
+        alertEl.style.opacity = '1';
+      }, 300);
     }, duration);
   }
+
   okBtn.onclick = () => {
     alertEl.style.opacity = '0';
-    setTimeout(() => { alertEl.style.display = 'none'; alertEl.style.opacity = '1'; }, 300);
+    setTimeout(() => {
+      alertEl.style.display = 'none';
+      alertEl.style.opacity = '1';
+    }, 300);
   };
 }
 
