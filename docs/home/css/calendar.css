@@ -390,7 +390,7 @@
   .calendar-wrapper #data-detail-popup .btn-close {top: 0; right: 5%;}
   .calendar-wrapper #contact-btn {margin-top: 5px; font-size: 15px;}
   .calendar-wrapper .btn-close:after {font-size: 20pt;}
-  .reservation-popup {height: auto;}
+  .reservation-popup {height: auto; width: 94%;}
   .reservation-popup .popup-content {z-index: 9999;}
   .reservation-popup .popup-content .title {font-size: 22px;}
   .reservation-popup .popup-content .btn-close:after {font-size: 21pt;}

@@ -1,3 +1,7 @@
+
+
+
+
 $(document).on('click', 'a[href="#"]', e => e.preventDefault());
 
 
@@ -137,7 +141,6 @@ class StarryNight {
     init() {
         this.createStars();
         this.createShootingStars();
-        // 별자리 효과를 쓰고 싶다면 아래 주석을 해제하세요.
         this.createConstellations();
     }
 
@@ -301,20 +304,16 @@ window.addEventListener('load', () => {
     new StarryNight();
 });
 
-// ————————————————
-// 화면 리사이즈/회전 시 새로고침 분기 로직
-// ————————————————
 
-// 페이지 리로드 함수
+
+
 function reloadPage() {
     location.reload();
 }
 
-// 모바일 기기 검출 (간단한 User-Agent 체크)
+
 const isMobile = /Android|iP(hone|od)/.test(navigator.userAgent);
 
-// 모바일에서는 orientationchange(회전) 이벤트만, 
-// 그 외(데스크탑·태블릿)에서는 resize 이벤트로만 새로고침
 if (isMobile) {
     window.addEventListener('orientationchange', reloadPage);
 } else {
@@ -386,7 +385,7 @@ activateOnceOnScroll(document.querySelector('.home .inner .container'));
 // ---------------------------------------
 //excellence 타이틀 애니메이션 
 const excellenceTitle = document.querySelector('.Excellence .container .titBox');
-
+gsap.registerPlugin(ScrollTrigger);
 gsap.timeline({
   scrollTrigger: {
     trigger: excellenceTitle,
@@ -608,31 +607,11 @@ ScrollTrigger.create({
 
 
 // ----------------------------------[partners]-----------------------------------------
-// circle 애니메이션
-/* gsap.timeline({
-     scrollTrigger:{
-         trigger:'.partners',
-         start:'0% 20%',
-         end:'30% 50%',
-         scrub:1,
-         markers:true
-     }
- })
- .fromTo('.partners .circle', {width:'0px', height:'0px',top:'0%',left:'0%', duration:10, ease:'elastic'},
-     {width:'5000px', height:'5000px', duration:10, ease:'none', top:'0%', left:'0%', rotate:'0'},0)
 
- .fromTo('.partners .top .inner .textBox', {y : 100, opacity:'0'},
-   {y:0, opacity:'1'}) */
-
-
-
-// script.js
-
-// script.js
 
 // 미디어쿼리 객체 (재사용)
 const mq = window.matchMedia('(max-width: 1024px)');
-
+gsap.registerPlugin(ScrollTrigger);
 gsap.utils.toArray('.boxes').forEach((box, rowIndex) => {
   const ul        = box.querySelector('ul');
   const originals = Array.from(ul.children);
@@ -1049,29 +1028,32 @@ document.addEventListener('DOMContentLoaded', setupTouchInteractions);
 
 
 
-
-// visual 텍스트애니
 // script.js
 
- class TextScramble {
+// ——————————————
+// Text Scramble 클래스
+// ——————————————
+class TextScramble {
   constructor(el) {
-    this.el = el;
-    this.chars = "abcde___@!#!@#!@#%%fghij_____klmnopqrs____tuvw__----____xyz";
+    this.el     = el;
+    this.chars  = "abcdef*//*/__)(&&^*)#@#$tuMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
     this.update = this.update.bind(this);
   }
 
   setText(newText) {
     const oldText = this.el.innerText;
-    const length = Math.max(oldText.length, newText.length);
-    const promise = new Promise((resolve) => (this.resolve = resolve));
-    this.queue = [];
+    const length  = Math.max(oldText.length, newText.length);
+    this.queue    = [];
+    this.resolve  = null;
 
+    const promise = new Promise(r => (this.resolve = r));
     for (let i = 0; i < length; i++) {
-      const from = oldText[i] || "";
-      const to   = newText[i] || "";
+      const from  = oldText[i] || "";
+      const to    = newText[i] || "";
+      // 각 글자마다 랜덤 시작·종료 프레임
       const start = Math.floor(Math.random() * 40);
       const end   = start + Math.floor(Math.random() * 40);
-      this.queue.push({ from, to, start, end });
+      this.queue.push({ from, to, start, end, char: null });
     }
 
     cancelAnimationFrame(this.frameRequest);
@@ -1081,22 +1063,29 @@ document.addEventListener('DOMContentLoaded', setupTouchInteractions);
   }
 
   update() {
-    let output = "";
+    let output   = "";
     let complete = 0;
 
-    for (let i = 0, n = this.queue.length; i < n; i++) {
+    // 모바일일 때 스크램블 빈도 낮춤
+    const isMobile       = window.innerWidth <= 480;
+    const scrambleRate   = isMobile ? 0.10 : 0.28;  
+
+    for (let i = 0; i < this.queue.length; i++) {
       let { from, to, start, end, char } = this.queue[i];
 
       if (this.frame >= end) {
+        // 완료된 글자
         complete++;
         output += to;
       } else if (this.frame >= start) {
-        if (!char || Math.random() < 0.28) {
+        // 스크램블 구간: 모바일에선 확률을 낮춰서 문자가 덜 깜빡임
+        if (!char || Math.random() < scrambleRate) {
           char = this.randomChar();
           this.queue[i].char = char;
         }
         output += `<span class="dud">${char}</span>`;
       } else {
+        // 아직 변경 전
         output += from;
       }
     }
@@ -1114,35 +1103,54 @@ document.addEventListener('DOMContentLoaded', setupTouchInteractions);
   randomChar() {
     return this.chars[Math.floor(Math.random() * this.chars.length)];
   }
-} 
+}
 
-// 페이지 로드 후 실행
+
+// ——————————————
+// 페이지 로드 후 초기화
+// ——————————————
 document.addEventListener("DOMContentLoaded", () => {
-  // 각 <h2 class="title">에 적용할 텍스트 배열
+  // (1) 그대로 유지되는 전체 문구 배열
   const phrases = [
     "Experience the Ultimate",
     "AI - Driven Open XDR"
   ];
 
-  // .mainTitle .title 요소 선택
-  const els = document.querySelectorAll(".mainTitle .title");
-
-  // TextScramble 인스턴스 생성
+  // (2) .mainTitle .title 요소 선택 & 인스턴스 생성
+  const els    = document.querySelectorAll(".mainTitle .title");
   const fxList = Array.from(els).map(el => new TextScramble(el));
 
-  // 스크램블 실행 함수
+  // (3) 전체 스크램블 실행
   function scrambleAll() {
     fxList.forEach((fx, idx) => {
-      fx.setText(phrases[idx]);
+      const text = phrases[idx] || "";
+      fx.setText(text);
     });
   }
 
-  // 초기 실행
+  // 최초 실행
   scrambleAll();
 
-  // 5초마다 반복 실행
+  // 5초마다 반복
   setInterval(scrambleAll, 5000);
+
+  // 리사이즈 시에도 빈도 조정 반영
+  window.addEventListener("resize", scrambleAll);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1407,6 +1415,21 @@ listItems.forEach(item => {
         });
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //security 타이틀 애니메이션 
@@ -1717,6 +1740,21 @@ window.addEventListener('resize', resizeCanvas);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // contact clock
   function updateClock() {
     const clockEl = document.getElementById('clock');
@@ -1732,6 +1770,25 @@ window.addEventListener('resize', resizeCanvas);
   // 페이지 로드 직후 한 번, 이후 1초마다 갱신
   updateClock();
   setInterval(updateClock, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1829,7 +1886,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function onDateClick(e) {
-    document.body.style.overflow = 'hidden';
+    if (window.innerWidth > 480) {
+  document.body.style.overflow = 'hidden';
+}
     document.querySelectorAll('.date.selected').forEach(b => b.classList.remove('selected'));
     e.currentTarget.classList.add('selected');
 
