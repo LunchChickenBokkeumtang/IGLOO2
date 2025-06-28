@@ -283,7 +283,7 @@ function draw() {
 /* 스크롤라 타이틀 */
 $(function(){
   $('.animate').scrolla({
-      moblie: true,
+      mobile: true,
       once:true
   })
 });

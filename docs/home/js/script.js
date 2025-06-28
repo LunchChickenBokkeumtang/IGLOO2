@@ -1,77 +1,31 @@
 $(document).on('click', 'a[href="#"]', e => e.preventDefault());
 
 
+// IOS 아이폰 스크롤 새로고침 오류 해결
+let maybePreventPullToRefresh = false;
+let lastTouchY = 0;
 
+document.addEventListener('touchstart', e => {
+  if (e.touches.length !== 1) return;
+  lastTouchY = e.touches[0].clientY;
+  // 페이지 최상단일 때만 당겨서 새로고침 가능 상태로 표시
+  maybePreventPullToRefresh = (window.pageYOffset === 0);
+}, { passive: false });
 
+document.addEventListener('touchmove', e => {
+  const touchY = e.touches[0].clientY;
+  const touchYDelta = touchY - lastTouchY;
+  lastTouchY = touchY;
 
-
- // 스크롤 smooth
-// 1) Scrooth 클래스 정의
-// class Scrooth {
-//   constructor({element = window, strength=10, acceleration = 1.2,deceleration = 0.975}={}) {
-//     this.element      = element;
-//     this.distance     = strength;
-//     this.acceleration = acceleration;
-//     this.deceleration = deceleration;
-//     this.running      = false;
-
-//     this.element.addEventListener('wheel',      this.scrollHandler.bind(this), {passive: false});
-//     this.element.addEventListener('mousewheel', this.scrollHandler.bind(this), {passive: false});
-//     this.scroll = this.scroll.bind(this);
-//   }
-
-//   scrollHandler(e) {
-//     e.preventDefault();
-
-//     if (!this.running) {
-//       // 처음 입력 시
-//       this.top             = this.element.pageYOffset || this.element.scrollTop || 0;
-//       this.running         = true;
-//       this.currentDistance = e.deltaY > 0 ? 0.1 : -0.1;
-//       this.isDistanceAsc   = true;
-//       this.scroll();
-//     } else {
-//       // 입력이 이어질 때
-//       this.isDistanceAsc   = true;
-//       this.currentDistance = e.deltaY > 0 ? this.distance : -this.distance;
-//     }
-//   }
-
-//   scroll() {
-//     if (!this.running) return;
-
-//     // 가속 or 감속
-//     this.currentDistance *= (this.isDistanceAsc ? this.acceleration : this.deceleration);
-
-//     // 최대 strength 도달 시 감속 모드로 전환
-//     if (Math.abs(this.currentDistance) >= Math.abs(this.distance)) {
-//       this.isDistanceAsc = false;
-//     }
-
-//     // 감속 후 거의 멈추면 애니 종료
-//     if (!this.isDistanceAsc && Math.abs(this.currentDistance) < 0.1) {
-//       this.running = false;
-//       return;
-//     }
-
-//     // 스크롤 위치 업데이트
-//     this.top += this.currentDistance;
-//     this.element.scrollTo(0, this.top);
-
-//     // 다음 프레임
-//     requestAnimationFrame(this.scroll);
-//   }
-// }
-
-// // 2) 페이지 로드 후 인스턴스 생성
-// window.addEventListener('DOMContentLoaded', () => {
-//   new Scrooth({
-//     element: window,
-//     strength:    20,    // 스크롤 한 번에 최대 이동 거리(px)
-//     acceleration: 2, // 연속 스크롤 시 가속 배율
-//     deceleration: 0.9 // 스크롤 멈출 때 감속 배율
-//   });
-// });
+  if (maybePreventPullToRefresh) {
+    maybePreventPullToRefresh = false;
+    if (touchYDelta > 0) {
+      // 아래로 당기는 첫 동작에 대해서만 기본 동작(새로고침)을 막음
+      e.preventDefault();
+      return;
+    }
+  }
+}, { passive: false });
 
 
 
@@ -85,60 +39,60 @@ $(document).on('click', 'a[href="#"]', e => e.preventDefault());
 
 
 
+// 1) 비디오 요소 참조 & 재생 속도 설정
+const firstVideo  = document.getElementById('firstVideo');
+const homeVideo   = document.getElementById('homeVideo');
+const homeVideo2  = document.getElementById('homeVideo2');
 
+// 플레이백 레이트 & 스타일
+firstVideo.playbackRate  = 1.5;
+homeVideo.playbackRate   = 3.3;
+homeVideo2.playbackRate  = 3.3;
+homeVideo2.style.opacity = 0.4;
 
-
-
-
-
-
-
-
-
-// 영상 swiper
+// 2) Swiper 초기화 (init 콜백 포함)
 const homeSwiper = new Swiper('.swiper-home', {
   effect: 'fade',
   fadeEffect: { crossFade: true },
   loop: true,
-  speed: 3000,
+  speed: 2000,
   autoplay: {
-    delay: 1500,
+    delay: 800,
     disableOnInteraction: false,
   },
   on: {
+    // Swiper가 처음 초기화될 때
+    init() {
+      // 모든 슬라이드 비디오를 멈춘 뒤
+      this.slides.forEach(slide => {
+        slide.querySelector('video')?.pause();
+      });
+      // 활성 슬라이드 비디오만 재생
+      const vid = this.slides[this.activeIndex].querySelector('video');
+      if (vid) {
+        vid.currentTime = 0;
+        vid.play();
+      }
+    },
+    // 슬라이드 전환 시작 시
     slideChangeTransitionStart() {
       const prevVid = this.slides[this.previousIndex].querySelector('video');
       const currVid = this.slides[this.activeIndex].querySelector('video');
-      
 
-      // 이전 슬라이드는 멈추기만 (reset 하지 않음)
+      // 이전 슬라이드 비디오 pause
       prevVid?.pause();
-      //새 슬라이드 영상 시간 0으로 리셋
-      currVid.currentTime=0
-      // 새 슬라이드는 이어서 재생 (이미 재생된 상태라면 현재 시점에서 계속)
-      currVid?.play();
+
+      // 현재 슬라이드 비디오 reset & play
+      if (currVid) {
+        currVid.currentTime = 0;
+        currVid.play();
+      }
     },
   },
 });
 
-// 초기 활성 슬라이드만 재생
-document.addEventListener('DOMContentLoaded', () => {
-  const initVid = document.querySelector('.swiper-home .swiper-slide-active video');
-  initVid?.play();
-
-});
-
-//2번째 비디오 재생 속도 2배로
-const firstVideo = document.getElementById('firstVideo')
-firstVideo.playbackRate = 1.5;
-const homeVideo = document.getElementById('homeVideo')
-homeVideo.playbackRate = 3.3;
-const homeVideo2 = document.getElementById('homeVideo2')
-homeVideo2.playbackRate = 3.3;
-homeVideo2.style.opacity = 0.4;
-
-
-
+// 3) 수동으로 init 트리거
+homeSwiper.init();
 
 
 

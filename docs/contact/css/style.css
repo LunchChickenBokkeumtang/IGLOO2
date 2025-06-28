@@ -98,7 +98,7 @@ header .inner nav ul li .text::before {content: ''; width: 0%; height: 1px; posi
 header .inner nav ul li:hover .text {color: #00ebe1;}
 header .inner nav ul li:hover .text::before {width: 100%;}
 header .inner .SearchBox {display: flex; position: absolute; right: 5%; top: 50%; transform: translateY(-50%); transition: all 0.4s; align-items: center;}
-header .inner .SearchBox .imgBox img {width: auto; transition: all 0.3s;}
+header .inner .SearchBox .imgBox img {width: auto; transition: all 0.3s; width: 24px; height: 24px;}
 header .inner .SearchBox .imgBox:nth-child(2) {margin-left: 30px;}
 
 
@@ -259,7 +259,7 @@ header.hide {
 
 /* header -> 햄버거 */
 .mobile-menu-toggle {display: none;flex-direction: column; gap: 3px; cursor: pointer; padding-top: 5%; box-sizing: border-box;}
-.mobile-menu-toggle span {display: block; width: 11px; height: 1px; background: #fff; transition: all 0.3s ease;}
+.mobile-menu-toggle span {display: block; width: 30px; height: 1px; background: #fff; transition: all 0.3s ease;}
 .mobile-nav {
   position: fixed;
   top: 38px;
@@ -325,22 +325,22 @@ header.hide {
   header .inner h1.logo {display: none;}
   header .inner h1.logoonly {display: inline; position: absolute; left: 5%; top: 50%; transform: translateY(-50%);}
   
-  header{height: 39px;}
-  header .inner h1 img{width: 33px;}
+  header{height: 56px;}
+  header .inner h1 img{width: 50px;}
   header .inner nav ul{display: none;}
   header .inner nav ul li{margin: 0 7px;}
-  header .inner .SearchBox .imgBox img{width: 13px; height: 13px;}
-  header .inner .SearchBox .imgBox:nth-child(2){margin-left: 7px;}
+  /* header .inner .SearchBox .imgBox img{width: 13px; height: 13px;}
+  header .inner .SearchBox .imgBox:nth-child(2){margin-left: 7px;} */ /* 숨김처리 */
 
   /* 480로고 오른쪽 텍스트 */
-  header .logoonly a::after {content: 'IGLOO'; width: auto; height: 32.3px; position: absolute; top: 50%; left: 82%; transform: translateY(-50%); line-height: 32.3px; font-size: 12px;}
+  header .logoonly a::after {content: 'IGLOO'; width: auto; height: 32.3px; position: absolute; top: 50%; left: 120%; transform: translateY(-50%); line-height: 32.3px; font-size: 24px;}
 
 
   /* 햄버거 */
   .mobile-menu-toggle {
-    display: none;
+    display: block;
     z-index: 1001;
-    margin-left: 8px;
+    width: 30px; height: 30px;
   }
   .bar {
     position: absolute;
@@ -352,11 +352,11 @@ header.hide {
   
   /* 각 바 초기 위치 */
   .bar--top {
-    top: 35%;
+    top: 25%;
   }
   
   .bar--middle {
-    top: 55%;
+    top: 50%;
   }
   
   .bar--bottom {
@@ -389,7 +389,7 @@ header.hide {
     /* 모바일 메뉴: 오른쪽에서 왼쪽으로 슬라이드 */
     .mobile-nav {
       position: fixed;
-      top: 39px;
+      top: 56px;
       right: 0;
       width: 0;
       height: 100%;
@@ -406,22 +406,41 @@ header.hide {
     }
   
     .mobile-nav ul {
-      padding: 80px 33px;
+      padding: 30px 33px;
       margin: 0;
     }
   
     .mobile-nav ul li {
+      white-space: nowrap;
       margin-bottom: 33px;
     }
   
+
+
+
     .mobile-nav ul li a {
       color: #fff;
       opacity: 0.85;
       text-decoration: none;
-      font-size: 25px;
+      font-size: 35px;
       transition: all 0.3s ease;
     }
-    .mobile-nav ul li a:active {color: #00ebe1;}
+    
+    /* 모바일에서 링크 클릭 시 포커스 박스 삭제 및 색깔 변경 */
+    .mobile-nav ul li a {-webkit-tap-highlight-color: transparent;}
+    .mobile-nav ul li a:focus {outline: none; box-shadow: none; color: #00ebe1;}
+    .mobile-nav ul li a:active {color: #00ebe1; outline: none;}
+    .mobile-nav ul li a::-moz-focus-inner {border: 0;} /* 파이어폭스 전용 */
+
+    /* 모바일에서 서치박스 숨김 */
+    header .inner .SearchBox > .imgBox {display: none;}
+    /* 서치박스 숨기면 햄버거 메뉴 height가 안잡히니까 서치박스에 height 추가 */
+    header .inner .SearchBox {height: 30px;}
+    /* search 서치, globe 글로브 아이콘 추가 */
+    .mobile-nav ul .hamIcon {width: 45%;}
+    .mobile-nav ul .hamIcon div {display: flex; justify-content: space-between; flex-wrap: nowrap; width: 80%; margin: 0 auto;}
+    .mobile-nav ul .hamIcon div .imgBox img {width: 50px; height: 50px;}
+
 } 
 
 
@@ -1167,6 +1186,7 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
 /* 480 */
 @media screen and (max-width: 480px) {
   .contactUs .contactUsInner {width: 90%;}
+  
   .contactUs .contactUsInner .contactUsTitleBox.motion .tit1 {font-size: 33px;}
   .contactUs .contactUsInner .contactUsTitleBox.motion .tit2 {font-size: 33px; margin-top: -10px;}
   .contactUs .contactUsInner .contactUsTitleBox.motion .tit3 {font-size: 13px; margin-bottom: 20px;}
