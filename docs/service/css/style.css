@@ -1043,9 +1043,12 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
   .visual .container .inner .textBox .low {width: 95%;}
   .visual .container .inner .textBox .right {width: 100%; margin-top: 20px; margin-left: 0;}
   .visual .container .inner .textBox .right .low {width: 93%;}
-  .visual .bgBox img {filter: brightness(0.6) /*노출*/ saturate(1.05) /*채도*/ contrast(1) /*대비*/ opacity(0.8) /*투명도*/;}
+  .visual .bgBox {top: 50%;}
+  .visual .bgBox img {filter: brightness(2.5) /*노출*/ saturate(1.05) /*채도*/ contrast(1) /*대비*/ opacity(0.8) /*투명도*/;}
   
-  
+    #starsContainer {
+    display: none !important;
+  }
   
   .svgLine {max-height: 70vh; margin-top: 100px;}
   .start-marker .marker-circle {width: 6px !important; height: 6px !important;}
