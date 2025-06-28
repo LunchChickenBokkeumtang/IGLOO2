@@ -1770,20 +1770,48 @@ window.addEventListener('resize', resizeCanvas);
 
 
 // 캘린더
+// Dimmed overlay helper functions
+function applyDimmedEffect() {
+  const overlay = document.querySelector('.overlay');
+  if (overlay) overlay.classList.add('active');
+}
+
+function removeDimmedEffect() {
+  const overlay = document.querySelector('.overlay');
+  if (overlay) overlay.classList.remove('active');
+}
+
+// Main calendar & popup script
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentYear, currentMonth, selectedDate;
   const monthNameSpan = document.querySelector('.month-name');
-  const calendarEl = document.querySelector('.datepicker-calendar');
-  const prevBtn = document.querySelector('.arrow.n1');
-  const nextBtn = document.querySelector('.arrow.n2');
-  const timePopup = document.getElementById('data-detail-popup');
-  const timeWrapper = timePopup.querySelector('.time-wrapper');
+  const calendarEl    = document.querySelector('.datepicker-calendar');
+  const prevBtn       = document.querySelector('.arrow.n1');
+  const nextBtn       = document.querySelector('.arrow.n2');
+  const timePopup     = document.getElementById('data-detail-popup');
+  const timeWrapper   = timePopup.querySelector('.time-wrapper');
   const timeCloseBtns = timePopup.querySelectorAll('.btn-close');
-  const timeNextBtn = document.getElementById('contact-btn');
+  const timeNextBtn   = document.getElementById('contact-btn');
+
+  // Move reservation popup under <body> to avoid stacking issues
   const reservationPopup = document.getElementById('reservation-detail-popup');
-  const resCloseBtn = reservationPopup.querySelector('.btn-close');
-  const calendarWrapper = document.querySelector('.calendar-wrapper');
+  document.body.appendChild(reservationPopup);
+  const resCloseBtn       = reservationPopup.querySelector('.btn-close');
+  const calendarWrapper   = document.querySelector('.calendar-wrapper');
+
+  // Adjust z-index on mobile
+  function setPopupLayer() {
+    if (window.innerWidth <= 480) {
+      reservationPopup.style.position = 'fixed';
+      reservationPopup.style.zIndex   = '99999';
+    } else {
+      reservationPopup.style.position = '';
+      reservationPopup.style.zIndex   = '';
+    }
+  }
+  setPopupLayer();
+  window.addEventListener('resize', setPopupLayer);
 
   initCalendar();
 
@@ -1805,29 +1833,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderCalendar() {
     monthNameSpan.textContent =
-      ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][currentMonth]
+      ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][currentMonth]
       + ' ' + currentYear;
 
     Array.from(calendarEl.children).slice(7).forEach(el => el.remove());
-
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const todayStart = new Date(); todayStart.setHours(0, 0, 0, 0);
+    const firstDay   = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth= new Date(currentYear, currentMonth + 1, 0).getDate();
+    const todayStart= new Date(); todayStart.setHours(0,0,0,0);
 
     for (let i = 0; i < firstDay; i++) {
       const span = document.createElement('span');
-      span.classList.add('day', 'empty');
+      span.classList.add('day','empty');
       calendarEl.appendChild(span);
     }
 
     for (let d = 1; d <= daysInMonth; d++) {
-      const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
       const btn = document.createElement('button');
       btn.textContent = d;
-      btn.className = 'date';
+      btn.className   = 'date';
       if (new Date(dateStr) < todayStart) {
-        btn.classList.add('faded');
-        btn.disabled = true;
+        btn.classList.add('faded'); btn.disabled = true;
       }
       btn.addEventListener('click', onDateClick);
       calendarEl.appendChild(btn);
@@ -1839,8 +1865,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.date.selected').forEach(b => b.classList.remove('selected'));
     e.currentTarget.classList.add('selected');
 
-    const day = e.currentTarget.textContent.padStart(2, '0');
-    selectedDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${day}`;
+    const day = e.currentTarget.textContent.padStart(2,'0');
+    selectedDate = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${day}`;
 
     const titleEl = document.querySelector('.datepicker .titleBox .title');
     if (titleEl) titleEl.textContent = 'Select a Date & Time';
@@ -1851,13 +1877,13 @@ document.addEventListener('DOMContentLoaded', () => {
       closeBtn.classList.add('fade-out');
     }
 
-    const times = ['09:00', '10:00', '11:00', '12:00', '13:00', '15:00', '16:00', '17:00'];
+    const times = ['09:00','10:00','11:00','12:00','13:00','15:00','16:00','17:00'];
     timeWrapper.innerHTML = '';
     times.forEach(t => {
       const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'time-slot';
-      b.dataset.time = t;
+      b.type        = 'button';
+      b.className   = 'time-slot';
+      b.dataset.time= t;
       b.textContent = t;
       b.addEventListener('click', onTimeSlotClick);
       timeWrapper.appendChild(b);
@@ -1883,7 +1909,7 @@ document.addEventListener('DOMContentLoaded', () => {
       timePopup.classList.remove('show');
       calendarWrapper.classList.remove('expanded');
       document.body.style.overflow = 'auto';
-      
+
       const titleEl = document.querySelector('.datepicker .titleBox .title');
       if (titleEl) titleEl.textContent = 'Select a Date';
 
@@ -1902,7 +1928,6 @@ document.addEventListener('DOMContentLoaded', () => {
   timeNextBtn.addEventListener('click', () => {
     const sel = timeWrapper.querySelector('.time-slot.selected');
     if (!sel) return;
-
     document.getElementById('detail-date').textContent = selectedDate;
     document.getElementById('detail-time').textContent = sel.dataset.time;
 
@@ -1921,91 +1946,100 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-document.querySelector('.reservation-popup .popup-content .btn-close').addEventListener('click', () => {
-  document.getElementById('reservation-detail-popup').classList.remove('active');
+// 팝업 외부 X 버튼 처리
+const outerClose = document.querySelector('.reservation-popup .popup-content .btn-close');
+if (outerClose) outerClose.addEventListener('click', () => {
+  const reservationPopup = document.getElementById('reservation-detail-popup');
+  reservationPopup.classList.remove('active');
   document.body.style.overflow = 'auto';
-
   const titleEl = document.querySelector('.datepicker .titleBox .title');
   if (titleEl) titleEl.textContent = 'Select a Date';
   removeDimmedEffect();
 });
 
+// 시계 업데이트
 function updateClock() {
-  const clockEl = document.getElementById('clock');
-  if (!clockEl) return;
+  const clockEl = document.getElementById('clock'); if (!clockEl) return;
   const now = new Date();
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2,'0');
+  const minutes = String(now.getMinutes()).padStart(2,'0');
   clockEl.textContent = `(${hours}:${minutes})`;
 }
 updateClock();
 setInterval(updateClock, 1000);
 
-
-
-
-// ✅ 폼 제출 처리
+// 폼 제출 처리
 const reservationForm = document.getElementById('reservation-form');
-reservationForm.addEventListener('submit', function(e) {
+if (reservationForm) reservationForm.addEventListener('submit', function(e) {
   e.preventDefault();
-
   const textInputs = reservationForm.querySelectorAll('input[type="text"]');
-  const checkboxes = reservationForm.querySelectorAll('.consent-checkbox');
-
+  const checkboxes  = reservationForm.querySelectorAll('.consent-checkbox');
   let allFilled = true;
-  textInputs.forEach(input => {
-    if (input.value.trim() === '') {
-      allFilled = false;
-    }
-  });
-
+  textInputs.forEach(input => { if (input.value.trim() === '') allFilled = false; });
   let allChecked = true;
-  checkboxes.forEach(checkbox => {
-    if (!checkbox.checked) {
-      allChecked = false;
-    }
-  });
-
-  if (!allFilled) {
-    showCustomAlert('모든 항목을 입력해주세요.');
-    return;
-  }
-
-  if (!allChecked) {
-    showCustomAlert('개인정보 동의에 체크해주시길 바랍니다.');
-    return;
-  }
-
+  checkboxes.forEach(cb => { if (!cb.checked) allChecked = false; });
+  if (!allFilled) return showCustomAlert('모든 항목을 입력해주세요.');
+  if (!allChecked) return showCustomAlert('개인정보 동의에 체크해주시길 바랍니다.');
   showCustomAlert('제출이 완료되었습니다.', 1000);
-
-  // 입력값 초기화
   reservationForm.reset();
-
   document.querySelectorAll('.date.selected').forEach(el => el.classList.remove('selected'));
-
-  // 팝업 닫기
   const reservationPopup = document.getElementById('reservation-detail-popup');
   reservationPopup.classList.remove('active');
   document.body.style.overflow = 'auto';
 });
 
-// ✅ 커스텀 alert 함수
-function showCustomAlert(message) {
-  const alertEl = document.getElementById('custom-alert');
+// 커스텀 alert 함수
+function showCustomAlert(message, duration = 0) {
+  const alertEl   = document.getElementById('custom-alert');
   const messageEl = document.getElementById('alert-message');
-  const okBtn = document.getElementById('alert-ok');
-
+  const okBtn     = document.getElementById('alert-ok');
+  if (!alertEl || !messageEl || !okBtn) return;
   messageEl.textContent = message;
   alertEl.style.display = 'flex';
-
+  if (duration > 0) {
+    setTimeout(() => {
+      alertEl.style.opacity = '0';
+      setTimeout(() => { alertEl.style.display = 'none'; alertEl.style.opacity = '1'; }, 300);
+    }, duration);
+  }
   okBtn.onclick = () => {
     alertEl.style.opacity = '0';
-    setTimeout(() => {
-      alertEl.style.display = 'none';
-      alertEl.style.opacity = '1'; // 원상 복구
-    }, 1000);
+    setTimeout(() => { alertEl.style.display = 'none'; alertEl.style.opacity = '1'; }, 300);
   };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

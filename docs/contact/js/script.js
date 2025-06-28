@@ -5,31 +5,115 @@ $(document).on('click', 'a[href="#"]', e => e.preventDefault());
 gsap.registerPlugin(ScrollTrigger);
 
 //hedaer 값 변화
-let lastScrollY = window.scrollY;
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.querySelector("header");
+  const mobileNav = document.getElementById("mobileNav");
+  const menuBtn = document.getElementById("mobile-menu-toggle");
 
-window.addEventListener('scroll', () => {
-  const header = document.querySelector('header');
-  const inner = header.querySelector('.inner');
-  const currentScrollY = window.scrollY;
+  let lastScrollY = window.scrollY;
+  let isMenuOpen = false;
 
-  if (currentScrollY > 0) {
-    header.classList.add('scrolled');
+  // 햄버거 메뉴 클릭 시
+  menuBtn.addEventListener("click", () => {
+    isMenuOpen = !isMenuOpen;
 
-    if (currentScrollY > lastScrollY) {
-      // 스크롤 ↓ 아래로 → header 숨김
-      header.classList.add('hide');
+    menuBtn.classList.toggle("active"); // ★ X 애니메이션 클래스 토글
+    mobileNav.classList.toggle("active"); // 메뉴 열고 닫기
+  });
+
+  // 스크롤 시 header, 메뉴 숨김 처리
+  window.addEventListener("scroll", () => {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > lastScrollY && currentScrollY > 20) {
+      header.classList.add("hide");
+
+      mobileNav.classList.remove("active");
+      menuBtn.classList.remove("active"); // ★ X 초기화
+      isMenuOpen = false;
     } else {
-      // 스크롤 ↑ 위로 → header 보여줌
-      header.classList.remove('hide');
+      header.classList.remove("hide");
     }
 
-  } else {
-    // 처음 위치일 때 초기화
-    header.classList.remove('hide');
-  }
+    lastScrollY = currentScrollY;
+  });
+});
 
-  lastScrollY = currentScrollY;
-}); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 노래바
+document.addEventListener("DOMContentLoaded", function () {
+  const audio = document.getElementById("backgroundAudio");
+  const soundIcon = document.getElementById("soundToggle");
+  const equalizer = document.getElementById("equalizer");
+
+  let isMuted = true;
+
+  // 🔒 초기화 시 확실하게 숨기기
+  audio.muted = true;
+  equalizer.style.display = "none";
+  soundIcon.src = "img/header/sound_off.png";
+
+  soundIcon.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    isMuted = !isMuted;
+
+    if (!isMuted) {
+      audio.muted = false;
+      audio.play().then(() => {
+        soundIcon.src = "img/header/sound_on.png";
+        equalizer.style.display = "flex";
+      });
+    } else {
+      audio.muted = true;
+      soundIcon.src = "img/header/sound_off.png";
+      equalizer.style.display = "none";
+    }
+  });
+});
 
 /* main 글자 이동 */
 

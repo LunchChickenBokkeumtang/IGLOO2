@@ -11,7 +11,9 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/scrolla.jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+
+    
 </head>
 <body>
     <header class="header scrolled">
@@ -29,8 +31,28 @@
                 </ul>
             </nav>
             <div class="SearchBox">
-                    <p class="imgBox"><a href="#"><img src="img/header/headerSearch.png" alt="Search"></a></p>
-                    <p class="imgBox"><a href="#"><img src="img/header/headerGlobe.png" alt="Globe"></a></p>
+                <p class="imgBox"><a href="#"><img src="img/header/headerSearch.png" alt="Search"></a></p>
+                <p class="imgBox"><a href="#"><img src="img/header/headerGlobe.png" alt="Globe"></a></p>
+                <div class="audio-controls">
+                    <audio id="backgroundAudio" autoplay loop muted>
+                        <source src="bgSound/sound_mp3.mp3" type="audio/mp3">
+                        브라우저가 오디오를 지원하지 않습니다.
+                    </audio>
+                    <div class="volume-control">
+                        <a href="#"><img src="img/header/sound_off.png" alt="Sound Icon" id="soundToggle"></a>
+                    </div>
+                    <div class="soundwave-container" id="equalizer" style="display: none;">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <span class="bar bar--top"></span>
+                    <span class="bar bar--middle"></span>
+                    <span class="bar bar--bottom"></span>
+                </div>
             </div>
         </div>
     </header>

@@ -2652,7 +2652,9 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
 
 
 
-
+@media screen and (max-width: 480px) {
+  .fixedButton {right: 15px;}
+}
 
 
 
@@ -2819,4 +2821,10 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
 .section-home.active,
 .section-chat.active {
   display: flex;
+}
+
+
+/* 480px 챗봇 */
+@media screen and (max-width: 480px) {
+  .chatbot-window {transform: translateX(50%); left: 10%; top: 10%; scale: 0.98;}
 }
