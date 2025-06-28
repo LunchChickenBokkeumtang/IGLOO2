@@ -2603,6 +2603,7 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
   footer > .imgBox >img{width: 100%; height: 100%;}
   footer .footerWrap .corp{width: 300px; margin: 32px 0;}
   footer .footerWrap .corp li a p{font-size: 13px;}
+  footer .footerWrap .corp li a svg{top: 50%; transform: translateY(-50%);}
   footer .footerWrap .newsLetter{padding: 46px 0;}
   footer .footerWrap .newsLetter .text1{font-size: 14px;}
   footer .footerWrap .newsLetter .text2{font-size: 18px;}
@@ -2635,10 +2636,11 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
 @media screen and (max-width: 480px) {
   footer{padding-bottom: 15px;}
   footer > .imgBox{top: -90%; right: -66%;}
-
-  footer .footerWrap .corp li a{font-size: 11px;}
-  footer .footerWrap .corp li a p {font-size: 11px;}
-  footer .footerWrap .corp li a svg{right: 2px;}
+footer .footerWrap .corp li a svg {display: none;}
+  footer .footerWrap .corp li{text-align: center; width: 100%;}
+  footer .footerWrap .corp li a{padding: 0;}
+  footer .footerWrap .corp li a p {font-size: 9px; position: relative; top: 0; left: 0;}
+  footer .footerWrap .corp li a svg{right: 2px; display: none;}
 
   footer .footerWrap .imgLine img{width: 25px; height: 25px;}
 
@@ -2670,6 +2672,76 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
     100% {height: 2em;}
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------[공통요소 : alert]--------------------- */
+/* alert 박스 커스텀 */
+.custom-alert {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    font-family: sans-serif;
+  }
+  
+  .alert-box {
+    background: #fff;
+    padding: 24px 36px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+    color: #000; /* ✅ 글자색 검정 */
+  }
+  
+  .alert-box p {
+    margin: 0 0 16px;
+    font-size: 16px;
+    color: #000; /* ✅ 글자색 검정 */
+  }
+  
+  .alert-box button {
+    padding: 8px 20px;
+    background: #00ebe1;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .alert-box button:hover {
+    background: #00c9c1;
+  }
+  
+  @keyframes fadeIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  .custom-alert {transition: opacity 0.3s ease;}
 
 
 

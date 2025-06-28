@@ -485,17 +485,30 @@ gsap.timeline({
 
 
 
-// 스크롤라
-$(function() {
-	$('.animate').scrolla({
-		mobile: true, //모바일버전시 활성화
-		once: false //스크롤시 딱 한번만 하고싶을땐 true
-	});    
-      }); 
+$(window).on('load', function() {
+    const isNarrow = window.innerWidth <= 480;
+    $('.partners .circle').attr('data-iteration', isNarrow ? 1 : 'infinite');
+    $('.partners').scrolla({
+        mobile: true,
+        once: isNarrow
+    });
+});
+
+function reloadPage() {
+    location.reload();
+}
+
+const isMobileUA = /Android|iP(hone|od)/.test(navigator.userAgent);
+
+if (isMobileUA) {
+    window.addEventListener('orientationchange', reloadPage);
+} else {
+    window.addEventListener('resize', reloadPage);
+}
 
 
 
-
+      
 
 
 
@@ -1271,17 +1284,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-// future
-gsap.registerPlugin(ScrollTrigger);
 
-ScrollTrigger.create({
-  trigger: ".future",
-  start:"50% 50%",
-  end:"+=40%", // 이거 수정하면 .future의 마진바텀도 수정해야함
-  pin: true,
-  pinSpacing: false,
-  // markers : true
-})
+
+// 이글루가 미래다 퓨쳐 섹션 스크롤하다가 핀걸리기
+const mm = gsap.matchMedia();
+
+mm.add("(min-width: 481px)", () => {
+  ScrollTrigger.create({
+    trigger: ".future",
+    start: "50% 50%",
+    end: "+=40%",
+    pin: true,
+    pinSpacing: false,
+    // markers: true
+  });
+});
+
+
+
+
+
+
 
 // video
   const video = document.getElementById('bg-video');
