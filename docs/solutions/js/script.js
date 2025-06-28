@@ -266,21 +266,21 @@ class StarryNight {
             
             // 별 크기 랜덤 설정
             const size = Math.random();
-            if (size > 0.8) star.classList.add('large');
-            else if (size > 0.5) star.classList.add('medium');
-            else star.classList.add('small');
+            if (size > 0.8)       star.classList.add('large');
+            else if (size > 0.5)  star.classList.add('medium');
+            else                  star.classList.add('small');
             
             // 위치 설정
             const x = Math.random() * window.innerWidth;
             const y = Math.random() * window.innerHeight;
             const z = Math.random() * 2000 - 1000; // Z 범위
             
-            star.style.left = x + 'px';
-            star.style.top = y + 'px';
-            star.style.transform = `translateZ(${z}px)`;
+            star.style.left           = x + 'px';
+            star.style.top            = y + 'px';
+            star.style.transform      = `translateZ(${z}px)`;
             star.style.animationDelay = Math.random() * 3 + 's';
             
-            this.container.appendChild(별);
+            this.container.appendChild(star);
             this.stars.push({ element: star, x, y, z, originalX: x, originalY: y });
         }
     }
@@ -303,27 +303,25 @@ class StarryNight {
         if (direction < 0.25) {
             startX = Math.random() * window.innerWidth * 0.3;
             startY = Math.random() * window.innerHeight * 0.3;
-            angle = 45;
+            angle  = 45;
         } else if (direction < 0.5) {
             startX = window.innerWidth * 0.7 + Math.random() * window.innerWidth * 0.3;
             startY = Math.random() * window.innerHeight * 0.3;
-            angle = 135;
+            angle  = 135;
         } else if (direction < 0.75) {
             startX = Math.random() * window.innerWidth;
             startY = -50;
-            angle = 90 + (Math.random() - 0.5) * 30;
+            angle  = 90 + (Math.random() - 0.5) * 30;
         } else {
             startX = window.innerWidth + 50;
             startY = Math.random() * window.innerHeight * 0.6;
-            angle = 180 + (Math.random() - 0.5) * 30;
+            angle  = 180 + (Math.random() - 0.5) * 30;
         }
         
-        shootingStar.style.left = startX + 'px';
-        shootingStar.style.top = startY + 'px';
-        shootingStar.style.transform = `rotateZ(${angle}deg)`;
-        
-        const duration = 2 + Math.random() * 2;
-        shootingStar.style.animationDuration = duration + 's';
+        shootingStar.style.left             = startX + 'px';
+        shootingStar.style.top              = startY + 'px';
+        shootingStar.style.transform        = `rotateZ(${angle}deg)`;
+        shootingStar.style.animationDuration = (2 + Math.random() * 2) + 's';
         
         this.container.appendChild(shootingStar);
         
@@ -331,26 +329,31 @@ class StarryNight {
             if (shootingStar.parentNode) {
                 shootingStar.parentNode.removeChild(shootingStar);
             }
-        }, duration * 1000);
+        }, parseFloat(shootingStar.style.animationDuration) * 1000);
     }
 
     createConstellations() {
         const constellations = [
             [
-                {x:200,y:100},{x:250,y:120},{x:300,y:110},
-                {x:350,y:140},{x:320,y:180},{x:280,y:200},{x:240,y:190}
+                { x: 200, y: 100 },
+                { x: 250, y: 120 },
+                { x: 300, y: 110 },
+                { x: 350, y: 140 },
+                { x: 320, y: 180 },
+                { x: 280, y: 200 },
+                { x: 240, y: 190 }
             ]
         ];
         constellations.forEach(constellation => {
             for (let i = 0; i < constellation.length - 1; i++) {
                 const line = document.createElement('div');
                 line.className = 'constellation-line';
-                const [p1, p2] = [constellation[i], constellation[i+1]];
+                const [p1, p2] = [constellation[i], constellation[i + 1]];
                 const length = Math.hypot(p2.x - p1.x, p2.y - p1.y);
-                const angle  = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180/Math.PI;
-                line.style.left = p1.x + 'px';
-                line.style.top  = p1.y + 'px';
-                line.style.width = length + 'px';
+                const angle  = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+                line.style.left     = p1.x + 'px';
+                line.style.top      = p1.y + 'px';
+                line.style.width    = length + 'px';
                 line.style.transform = `rotate(${angle}deg)`;
                 this.container.appendChild(line);
             }
@@ -371,8 +374,8 @@ class StarryNight {
         for (let i = 0; i < 5; i++) {
             const sparkle = document.createElement('div');
             sparkle.className = 'star large';
-            sparkle.style.left = x + (Math.random()-0.5)*50 + 'px';
-            sparkle.style.top  = y + (Math.random()-0.5)*50 + 'px';
+            sparkle.style.left      = x + (Math.random() - 0.5) * 50 + 'px';
+            sparkle.style.top       = y + (Math.random() - 0.5) * 50 + 'px';
             sparkle.style.animation = 'twinkle 0.6s ease-out';
             this.container.appendChild(sparkle);
             setTimeout(() => {
@@ -412,18 +415,20 @@ class StarryNight {
     }
 }
 
-// 페이지 로드 후 인스턴스 생성
+// 페이지 로드 후, 화면 폭이 480px 초과일 때만 스타필드 실행
 window.addEventListener('load', () => {
-    new StarryNight();
+    if (window.innerWidth > 480) {
+        new StarryNight();
+    }
 });
 
-
-
+// ————————————————
+// 화면 리사이즈/회전 시 새로고침 분기 로직
+// ————————————————
 
 function reloadPage() {
     location.reload();
 }
-
 
 const isMobile = /Android|iP(hone|od)/.test(navigator.userAgent);
 
