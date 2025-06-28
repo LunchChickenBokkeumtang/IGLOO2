@@ -1,6 +1,36 @@
 $(document).on('click', 'a[href="#"]', e => e.preventDefault());
 
 
+
+// IOS 아이폰 스크롤 새로고침 오류 해결
+let maybePreventPullToRefresh = false;
+let lastTouchY = 0;
+
+document.addEventListener('touchstart', e => {
+  if (e.touches.length !== 1) return;
+  lastTouchY = e.touches[0].clientY;
+  // 페이지 최상단일 때만 당겨서 새로고침 가능 상태로 표시
+  maybePreventPullToRefresh = (window.pageYOffset === 0);
+}, { passive: false });
+
+document.addEventListener('touchmove', e => {
+  const touchY = e.touches[0].clientY;
+  const touchYDelta = touchY - lastTouchY;
+  lastTouchY = touchY;
+
+  if (maybePreventPullToRefresh) {
+    maybePreventPullToRefresh = false;
+    if (touchYDelta > 0) {
+      // 아래로 당기는 첫 동작에 대해서만 기본 동작(새로고침)을 막음
+      e.preventDefault();
+      return;
+    }
+  }
+}, { passive: false });
+
+
+
+
 // ----------------[공통요소 : 헤더]------------------------------
 gsap.registerPlugin(ScrollTrigger);
 
