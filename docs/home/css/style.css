@@ -376,8 +376,9 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
     }
   
     .mobile-nav ul {
-      padding: 30px 33px;
+      padding: 80px 33px;
       margin: 0;
+      box-sizing: border-box;
     }
   
     .mobile-nav ul li {

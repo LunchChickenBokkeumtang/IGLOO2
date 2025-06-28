@@ -121,10 +121,9 @@ homeSwiper.init();
 
 
 
-//밤하늘에 별을
+// 밤하늘에 별을
 class StarryNight {
     constructor() {
-        // 1번: getElementById 그대로 사용
         this.container = document.getElementById('starsContainer');
         this.stars = [];
         this.mouseX = window.innerWidth / 2;
@@ -139,7 +138,7 @@ class StarryNight {
         this.createStars();
         this.createShootingStars();
         // 별자리 효과를 쓰고 싶다면 아래 주석을 해제하세요.
-        // this.createConstellations();
+        this.createConstellations();
     }
 
     createStars() {
@@ -267,17 +266,17 @@ class StarryNight {
     }
 
     animate() {
-        const centerX = window.innerWidth/2;
-        const centerY = window.innerHeight/2;
-        const deltaX  = (this.mouseX - centerX)/centerX;
-        const deltaY  = (this.mouseY - centerY)/centerY;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const deltaX  = (this.mouseX - centerX) / centerX;
+        const deltaY  = (this.mouseY - centerY) / centerY;
         
         this.stars.forEach(star => {
-            const pm = star.z/200;
+            const pm = star.z / 200;
             const px = deltaX * pm;
             const py = deltaY * pm;
-            const rx = deltaY * (star.z/500);
-            const ry = deltaX * (star.z/500);
+            const rx = deltaY * (star.z / 500);
+            const ry = deltaX * (star.z / 500);
             star.element.style.transform = `
                 translateZ(${star.z}px)
                 translateX(${px}px)
@@ -285,13 +284,13 @@ class StarryNight {
                 rotateX(${rx}deg)
                 rotateY(${ry}deg)
             `;
-            star.element.style.opacity = Math.max(0.3, 1 - Math.abs(star.z)/1500);
+            star.element.style.opacity = Math.max(0.3, 1 - Math.abs(star.z) / 1500);
         });
         
         this.container.style.transform = `
             perspective(1000px)
-            rotateY(${deltaX*8}deg)
-            rotateX(${-deltaY*8}deg)
+            rotateY(${deltaX * 8}deg)
+            rotateX(${-deltaY * 8}deg)
         `;
         requestAnimationFrame(() => this.animate());
     }
@@ -302,10 +301,25 @@ window.addEventListener('load', () => {
     new StarryNight();
 });
 
-// 창 크기 변경 시 새로고침
-window.addEventListener('resize', () => {
+// ————————————————
+// 화면 리사이즈/회전 시 새로고침 분기 로직
+// ————————————————
+
+// 페이지 리로드 함수
+function reloadPage() {
     location.reload();
-});
+}
+
+// 모바일 기기 검출 (간단한 User-Agent 체크)
+const isMobile = /Android|iP(hone|od)/.test(navigator.userAgent);
+
+// 모바일에서는 orientationchange(회전) 이벤트만, 
+// 그 외(데스크탑·태블릿)에서는 resize 이벤트로만 새로고침
+if (isMobile) {
+    window.addEventListener('orientationchange', reloadPage);
+} else {
+    window.addEventListener('resize', reloadPage);
+}
 
 
 
