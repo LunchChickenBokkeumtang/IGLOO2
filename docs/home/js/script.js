@@ -317,21 +317,32 @@ window.addEventListener('load', () => {
 // ————————————————
 
 function reloadPage() {
-    location.reload();
+  location.reload();
 }
 
 const isMobile = /Android|iP(hone|od)/.test(navigator.userAgent);
+// 초기 로드 시 현재 너비 저장
+let previousWidth = window.innerWidth;
 
 if (isMobile) {
-    // 스마트폰에서는 회전만 감지
-    window.addEventListener('orientationchange', reloadPage);
+  // 스마트폰에서는 회전만 감지
+  window.addEventListener('orientationchange', reloadPage);
 } else {
-    // 데스크탑·태블릿에서는 리사이즈 시 너비가 1400px 초과일 때만 새로고침
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 1400) {
-            reloadPage();
-        }
-    });
+  // 데스크탑·태블릿: 1400px 경계만 넘거나 벗어날 때만 새로고침
+  window.addEventListener('resize', () => {
+    const currentWidth = window.innerWidth;
+
+    // 1400px 이하↔초과로 상태가 바뀌었을 때만 reload
+    if (
+      (previousWidth <= 1400 && currentWidth > 1400) ||
+      (previousWidth > 1400 && currentWidth <= 1400)
+    ) {
+      reloadPage();
+    }
+
+    // 다음 비교를 위해 너비 업데이트
+    previousWidth = currentWidth;
+  });
 }
 
 
