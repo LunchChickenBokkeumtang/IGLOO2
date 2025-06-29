@@ -235,9 +235,6 @@ function showCustomAlert(message) {
 
 
 
-
-
-
 // 밤하늘에 별을
 class StarryNight {
     constructor() {
@@ -318,9 +315,9 @@ class StarryNight {
             angle  = 180 + (Math.random() - 0.5) * 30;
         }
         
-        shootingStar.style.left             = startX + 'px';
-        shootingStar.style.top              = startY + 'px';
-        shootingStar.style.transform        = `rotateZ(${angle}deg)`;
+        shootingStar.style.left              = startX + 'px';
+        shootingStar.style.top               = startY + 'px';
+        shootingStar.style.transform         = `rotateZ(${angle}deg)`;
         shootingStar.style.animationDuration = (2 + Math.random() * 2) + 's';
         
         this.container.appendChild(shootingStar);
@@ -433,10 +430,21 @@ function reloadPage() {
 const isMobile = /Android|iP(hone|od)/.test(navigator.userAgent);
 
 if (isMobile) {
+    // 스마트폰에서는 회전만 감지
     window.addEventListener('orientationchange', reloadPage);
 } else {
-    window.addEventListener('resize', reloadPage);
+    // 데스크탑·태블릿에서는 리사이즈 시 너비가 1400px 초과일 때만 새로고침
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1400) {
+            reloadPage();
+        }
+    });
 }
+
+
+
+
+
 
 
 

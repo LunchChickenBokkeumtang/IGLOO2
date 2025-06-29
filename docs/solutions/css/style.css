@@ -756,9 +756,10 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
 
 
 @media screen and (max-width:1400px) {
-    #starsContainer {
+  #starsContainer {
     display: none !important;
   }
+  .svgLine {max-height: 140vh; margin-top: 100px;}
 }
 
 /*visual 반응형 */
