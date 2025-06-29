@@ -847,7 +847,7 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
 /* boxUl */
 .Excellence .container .boxInner{position: relative; bottom: 37px;}
 .Excellence .container .boxInner .boxUl{display: flex; justify-content: space-between; width: 100%; left: 0; padding: 0 40px 0; margin: 0 auto; z-index: 50; position: relative;}
-.Excellence .container .boxInner .boxUl > li{display: block; width: 15.7%; height: 760px;}
+.Excellence .container .boxInner .boxUl > li{display: block; width: 15.7%;}
 .Excellence .container .boxInner .boxUl > li .box{width: 100%; border-radius: 22px;}
 .Excellence .container .boxInner .boxUl > li .box:nth-child(2){margin-top: 20px;}
 
@@ -1043,7 +1043,7 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
 
 /* solution */
 .solution {background: #000; width: 100%; height: 100%;}
-.solution .inner {max-width: 1610px; margin: 0 auto; padding: 200px 0; display: flex; justify-content: space-between;}
+.solution .inner {max-width: 1610px; width: 93%; margin: 0 auto; padding: 200px 0; display: flex; justify-content: space-between;}
 .solution .inner .stickyBox {position: sticky; top: 30%; left: 0; width: 40%; height: 10%;}
 .solution .inner .stickyBox .title {font-size: 14px; color: #00ebe1; display: flex; align-items: center; margin-bottom: 20px;}
 .solution .inner .stickyBox .title img {margin-right: 9px;}
@@ -1452,7 +1452,7 @@ transition: 0.5s;transform-origin: center;}
 /*solution 반응형 */
 /* 1024 */
 @media screen and (max-width: 1024px) {
-  .solution .inner{display: block; justify-content: center;}
+  .solution .inner{display: block; justify-content: center; width: 100%;}
   .solution .inner .stickyBox{position: relative; width: 79%; margin: 0 auto 18px; }
   .solution .inner .stickyBox .title{font-size: 16px; margin-bottom: 0px;}
   .solution .inner .stickyBox .title img{height: 16px; height: 16px;}
@@ -1671,6 +1671,9 @@ mask:
 
 mask-composite: exclude;
 -webkit-mask-composite: xor;
+}
+@media (max-width: 1400px) {
+  .security .inner .bottomBox .en2 {font-size: 30px;}
 }
 
 @media (max-width: 1024px) {
