@@ -628,7 +628,9 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
 
 
 
-
+@media screen and (max-width:1400px) {
+  #starsContainer {display: none !important;}
+}
 
 
 /*home 반응형 */
@@ -1008,6 +1010,7 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
 
 /* 480 */
 @media screen and (max-width: 480px) {
+  .future {margin-bottom: 0px;}
   .future .inner .textBox .title{font-size: 12px; margin-bottom: 3px;}
   .future .inner .textBox .text{font-size: 13px; margin-bottom: 20px;}
   .future .inner .textBox .mainTitle{font-size: 30px; margin-bottom: 12.6px;}
@@ -1992,7 +1995,7 @@ will-change: transform, opacity;
 .newsroom .container .stacked_stack .swiperSlide .item:nth-child(2) .Banner .eventBox p {font-size: 15px;}
 
 /* 왼쪽 레이아웃 */
-.newsroom .container .stacked_head {margin-bottom: 450px;}
+.newsroom .container .stacked_head {margin-bottom: 520px;}
 .newsroom .container .stacked_head .leftBox .bottom {margin-top: 8px;}
 
 /* 양쪽 레이아웃 */
@@ -2008,7 +2011,7 @@ will-change: transform, opacity;
 .newsroom .container .stacked_stack .swiperSlide .item:nth-child(2) .bottom {margin-top: 9%;}
 
 /* 게이지 바 */
-.newsroom .progress-bar {top: auto; right: 48.2%; top: 72%;}
+.newsroom .progress-bar {top: auto; right: 48.2%; top: 70%;}
 .newsroom .bar-shell {width: 2px; height: 200px;}
 .newsroom div.progress-current {font-size: 10px;}
 .newsroom span.progress-total {font-size: 10px;}

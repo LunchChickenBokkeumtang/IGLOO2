@@ -822,6 +822,18 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
 
 
 
+
+
+@media screen and (max-width: 1400px) {
+  #starsContainer {
+    display: none !important;
+  }
+
+}
+
+
+
+
 /*visual 반응형 */
 /* 1024 */
 @media screen and (max-width: 1024px) {
