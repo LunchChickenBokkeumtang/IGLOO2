@@ -62,33 +62,33 @@ const homeSwiper = new Swiper('.swiper-home', {
   fadeEffect: { crossFade: true },
   loop: true,
   speed: 2000,
+  // Swiper 자체 autoplay 옵션은 켜둬도 되고, 만약 충돌이 생기면 disableOnInteraction만 false로
   autoplay: {
     delay: 800,
     disableOnInteraction: false,
   },
   on: {
-    // Swiper가 처음 초기화될 때
+    // 첫 렌더링 시
     init() {
-      // 모든 슬라이드 비디오를 멈춘 뒤
+      // 모든 슬라이드 비디오 pause
       this.slides.forEach(slide => {
         slide.querySelector('video')?.pause();
       });
-      // 활성 슬라이드 비디오만 재생
+      // 활성 슬라이드 비디오만재생
       const vid = this.slides[this.activeIndex].querySelector('video');
       if (vid) {
         vid.currentTime = 0;
         vid.play();
       }
     },
-    // 슬라이드 전환 시작 시
+    // 슬라이드 전환이 시작될 때
     slideChangeTransitionStart() {
+      // 이전 슬라이드 비디오 정지
       const prevVid = this.slides[this.previousIndex].querySelector('video');
-      const currVid = this.slides[this.activeIndex].querySelector('video');
-
-      // 이전 슬라이드 비디오 pause
       prevVid?.pause();
 
-      // 현재 슬라이드 비디오 reset & play
+      // 새 슬라이드 비디오 재생
+      const currVid = this.slides[this.activeIndex].querySelector('video');
       if (currVid) {
         currVid.currentTime = 0;
         currVid.play();
@@ -97,8 +97,9 @@ const homeSwiper = new Swiper('.swiper-home', {
   },
 });
 
-// 3) 수동으로 init 트리거
+// 3) init 수동 트리거 (Swiper를 new한 뒤 한 번만 호출)
 homeSwiper.init();
+
 
 
 
@@ -354,7 +355,6 @@ if (isMobile) {
 
 
 
-
 /* ----------------------------------------------------- */
 /* main+header 글자 이동 */
 
@@ -544,17 +544,6 @@ $(window).on('load', function() {
     });
 });
 
-function reloadPage() {
-    location.reload();
-}
-
-const isMobileUA = /Android|iP(hone|od)/.test(navigator.userAgent);
-
-if (isMobileUA) {
-    window.addEventListener('orientationchange', reloadPage);
-} else {
-    window.addEventListener('resize', reloadPage);
-}
 
 
 

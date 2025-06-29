@@ -11,6 +11,22 @@ a:focus {outline: none}
 button:focus {outline: none}
 video {max-width: 100%; height: auto;}
 html { background: #000; scroll-behavior: smooth;}
+video::-webkit-media-controls { 
+  display: none !important; 
+}
+video::-webkit-media-controls-start-playback-button { 
+  display: none !important; 
+}
+/* 크롬/파이어폭스 등 다른 엔진용 */
+video::-internal-media-controls-overlays-cast-button,
+video::-internal-media-controls-overlay-play-button {
+  display: none !important;
+}
+
+
+
+
+
 
 @font-face {
     font-family: 'Pretendard';
