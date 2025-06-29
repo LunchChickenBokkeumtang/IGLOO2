@@ -1,8 +1,9 @@
 
 
 
-
 $(document).on('click', 'a[href="#"]', e => e.preventDefault());
+
+
 
 
 // IOS 아이폰 스크롤 새로고침 오류 해결
@@ -30,6 +31,7 @@ document.addEventListener('touchmove', e => {
     }
   }
 }, { passive: false });
+
 
 
 
@@ -383,6 +385,14 @@ activateOnceOnScroll(document.querySelector('.home .inner .container'));
 
 
 // ---------------------------------------
+//스크롤라(scrolla)
+$(function() {
+  $('.animate').scrolla({
+    mobile: true,
+    once: true,
+  });
+}); 
+
 //excellence 타이틀 애니메이션 
 const excellenceTitle = document.querySelector('.Excellence .container .titBox');
 gsap.registerPlugin(ScrollTrigger);
@@ -391,10 +401,25 @@ gsap.timeline({
     trigger: excellenceTitle,
     start: '50% 80%',
     end: '100% 0%',
+    toggleClass: 'active',
     //markers: true
   }
 })
 .from(excellenceTitle, { y: '30%', opacity: 0, duration: 1});
+
+
+const boxul = document.querySelector('.Excellence .container .boxInner .boxUl');
+gsap.registerPlugin(ScrollTrigger);
+gsap.timeline({
+  scrollTrigger: {
+    trigger: boxul,
+    start: '-10% bottom',
+    end: 'bottom top',
+    toggleClass: 'active',
+    //markers: true
+  }
+})
+
 
 //excellence Scroll 슬라이드 효과
 const scrollItems = [
@@ -1438,7 +1463,6 @@ listItems.forEach(item => {
         });
     });
 });
-
 
 
 
