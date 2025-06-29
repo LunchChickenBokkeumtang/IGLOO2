@@ -935,7 +935,7 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
   .visual {min-height: 600px;} 
   .visual .container .inner {margin: 120px auto 0;}
   .visual .container .inner .title {font-size: 64px !important;}
-  .visual .container .inner .title .solution {padding-left: 0px !important; margin-top: -30px; text-align: right;}
+  .visual .container .inner .title .solution { margin-top: -30px; text-align: left;}
   .visual .container .inner .textBox {margin-top: 60px;}
   .visual .container .inner .textBox .left {width: 65%; margin-left: 15%;}
   .visual .container .inner .textBox h3 {font-size: 20px !important;}
