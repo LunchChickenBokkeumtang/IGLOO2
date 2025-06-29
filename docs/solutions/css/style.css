@@ -900,7 +900,7 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
   .visual .container .inner .title {font-size: 60px !important;}
   .visual .container .inner .title .solution {padding-left: 0px !important; margin-top: -30px; text-align: right;}
   .visual .container .inner .textBox {margin-top: 20px !important; display: block;}
-  .visual .container .inner .textBox .left {width: 91%; margin-left: 0;}
+  .visual .container .inner .textBox .left {width: 100%; margin-left: 0;}
   .visual .container .inner .textBox h3 {font-size: 18px !important; margin-bottom: 5px !important;}
   .visual .container .inner .textBox p {font-size: 10px !important; display: none !important;}
   .visual .container .inner .textBox span {font-size: 14px !important; line-height: 1.4 !important; color: #fff !important; opacity: 0.7 !important; font-weight: 100 !important;}

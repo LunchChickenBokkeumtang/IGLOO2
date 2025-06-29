@@ -919,7 +919,7 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
   /* .Excellence .container .titBox{display: none;} */
   .Excellence .container .boxInner .boxUl > li .box.n8 {top: -181px;}
   .Excellence .container .boxInner .boxUl > li .box.n9 {top: -181px;}
-  .Excellence .container .titBox {margin: 15.625% 21.6% 20% 10.6%;}
+  .Excellence .container .titBox {margin: 15.625% auto 20% 10.6%;}
   .Excellence .container .boxInner .boxUl{flex-wrap: wrap; margin-top: 100px;}
   .Excellence .container .boxInner .boxUl > li{width: 48%; height: auto;}
   .Excellence .container .boxInner .boxUl li .box{margin-top: 15px; height: auto;}
@@ -2292,7 +2292,7 @@ width: calc(100vw * (240/1920)); min-width: 125px; max-width: 240px; aspect-rati
 .partners .high {font-size: 11px;}
 .partners .high img {width: 10px; margin-right: 4px;}
 .partners .middle p {font-size: 28px; text-align: left;}
-.partners .low {font-size: 7px;}
+.partners .low {font-size: 13px;}
 
 /* 텍스트박스랑 박스라인 사이 마진 */
 .partners .bottom {margin-top: 80px;}
