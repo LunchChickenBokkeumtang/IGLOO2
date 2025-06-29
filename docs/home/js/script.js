@@ -354,7 +354,6 @@ if (isMobile) {
 
 
 
-
 /* ----------------------------------------------------- */
 /* main+header 글자 이동 */
 
@@ -544,17 +543,6 @@ $(window).on('load', function() {
     });
 });
 
-function reloadPage() {
-    location.reload();
-}
-
-const isMobileUA = /Android|iP(hone|od)/.test(navigator.userAgent);
-
-if (isMobileUA) {
-    window.addEventListener('orientationchange', reloadPage);
-} else {
-    window.addEventListener('resize', reloadPage);
-}
 
 
 
