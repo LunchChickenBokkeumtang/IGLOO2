@@ -1,7 +1,4 @@
-// Prevent default on empty links
-document.addEventListener("click", e => {
-  if (e.target.matches('a[href="#"]')) e.preventDefault();
-});
+$(document).on('click', 'a[href="#"]', e => e.preventDefault());
 
 
 $(function() {

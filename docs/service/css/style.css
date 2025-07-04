@@ -93,14 +93,16 @@ header .inner h1 img {width: 100%;}
 header .inner h1.logoonly {display: none;} /* 글씨없는 로고는 제거 */
 header .inner nav {display: flex; justify-content: space-between;}
 header .inner nav ul {display: flex; font-size: 16px; margin: 0 auto;}
-header .inner nav ul li {margin: 0 40px;}
+header .inner nav ul li {margin: 0 30px;}
 header .inner nav ul li .text {transition: all 0.4s; position: relative; display: inline-block;}
-header .inner nav ul li .text::before {content: ''; width: 0%; height: 1px; position: absolute; left: 0; bottom: -15%; background: #9f67ff; transition: all 0.4s;}
-header .inner nav ul li:hover .text {color: #9f67ff;}
+header .inner nav ul li.show .text::before {content: ''; width: 0%; height: 1px; position: absolute; left: 0; bottom: -15%; background: #9f67ff; transition: all 0.4s;}
+header .inner nav ul li.none .text{cursor: default; opacity: 0.35;}
+header .inner nav ul li.show:hover .text {color: #9f67ff;}
 header .inner nav ul li:hover .text::before {width: 100%;}
-header .inner .SearchBox {display: flex; position: absolute; right: 5%; top: 50%; transform: translateY(-50%); transition: all 0.4s; align-items: center;}
-header .inner .SearchBox .imgBox img {width: auto; transition: all 0.3s; width: 24px; height: 24px;}
+header .inner .SearchBox {display: flex; position: absolute; right: 5%; top: 50%; transform: translateY(-50%); transition: all 0.4s;}
+header .inner .SearchBox .imgBox img {width: 24px; height: 24px; transition: all 0.3s; opacity: 0.35; cursor: default;}
 header .inner .SearchBox .imgBox:nth-child(2) {margin-left: 30px;}
+
 
 
 
@@ -283,11 +285,20 @@ header.hide {
 
 
 
-.mobile-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-}
-
+    .mobile-nav ul li a {
+      color: #fff;
+      opacity: 0.85;
+      text-decoration: none;
+      font-size: 35px;
+      transition: all 0.3s ease;
+    }
+    
+        .mobile-nav ul li.none a {
+          cursor: default;
+          opacity: 0.35;
+    }
+    
+    .mobile-nav .hamIcon {opacity: 0.35;}
 
 
 
@@ -541,14 +552,16 @@ footer .footerWrap .newsLetter .write .buttonBox button:focus .loader-container 
 footer .footerWrap .newsLetter .write .textLogin:focus{outline: none; border-bottom: 1px solid #00EBE1; transition: all 1s;}
 footer .footerWrap .imgLine{text-align: center; position: relative; margin-top: 113px;}
 footer .footerWrap .imgLine::before{content: ''; position: absolute; width: 1000%; height: 1px; background: #fff; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.6;}
-footer .footerWrap .navigation{margin: 50px 0 91px; display: flex; justify-content: space-between; width: 550px; font-size: 21px; font-weight: 300; color: fff; opacity: 0.62;}
-footer .footerWrap .navigation li a {transition: all 0.5s ease;}
-footer .footerWrap .navigation li a:hover{color: #00EBE1; }
+footer .footerWrap .navigation{margin: 50px 0 91px; display: flex; justify-content: space-between; width: 550px; font-size: 21px; font-weight: 300; color: #fff; }
+footer .footerWrap .navigation li.show a {transition: all 0.5s ease;}
+footer .footerWrap .navigation li.none a {cursor: default; opacity: 0.35;}
+footer .footerWrap .navigation li.show a:hover{color: #9f67ff;}
 footer .footerWrap .footerBottom{display: flex; justify-content: space-between; align-items: flex-end;}
 footer .footerWrap .footerBottom .footerLogo{ height: 100%; transition: all 1s; position: relative; z-index: 2; color: #00EBE1; overflow: hidden;}
 footer .footerWrap .footerBottom .footerLogo img{position: absolute; top: 0%; left: 0%; z-index: 11; width: 100%;}
-footer .footerWrap .footerBottom .footerLogo img:nth-child(1){position: relative;}
+footer .footerWrap .footerBottom .footerLogo img:nth-child(1){position: relative; filter: brightness(0) saturate(100%) invert(44%) sepia(16%) saturate(3957%) hue-rotate(227deg) brightness(106%) contrast(107%);}
 footer .footerWrap .footerBottom .footerLogo img:nth-child(2){width: 120%; height: 100%; left: -20%;}
+footer .footerWrap .footerBottom .footerLogo img:nth-child(3){filter: brightness(0) saturate(100%) invert(44%) sepia(16%) saturate(3957%) hue-rotate(227deg) brightness(106%) contrast(107%);}
 footer.active .footerWrap .footerBottom .footerLogo img:nth-child(2){transition: all 1.5s; left: 120%;}
 
 footer .footerWrap .footerBottom .number {font-size: 16px; opacity: 0.62; text-align: right; display: block; }
@@ -1319,7 +1332,7 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
 .svg-wrapper {
   position: sticky;
   bottom: -10vh;
-  width: 90vw;      /* 요청하신 90vw */
+  width: 85vw;      /* 요청하신 90vw */
   max-width: 1855px;
   margin: 0 auto;
 

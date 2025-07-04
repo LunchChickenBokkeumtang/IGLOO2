@@ -107,7 +107,7 @@ header .inner nav ul li.none .text{cursor: default; opacity: 0.35;}
 header .inner nav ul li.show:hover .text {color: #00ebe1;}
 header .inner nav ul li:hover .text::before {width: 100%;}
 header .inner .SearchBox {display: flex; position: absolute; right: 5%; top: 50%; transform: translateY(-50%); transition: all 0.4s;}
-header .inner .SearchBox .imgBox img {width: auto; transition: all 0.3s; opacity: 0.35;}
+header .inner .SearchBox .imgBox img {width: auto; transition: all 0.3s; opacity: 0.35; cursor: default;}
 header .inner .SearchBox .imgBox:nth-child(2) {margin-left: 30px;}
 
 .header.scrolled {top: 0px;}
