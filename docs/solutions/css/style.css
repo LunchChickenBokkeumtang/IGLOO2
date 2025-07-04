@@ -912,7 +912,6 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
     display: none !important;
   }
 
-
   .svgLine {max-height: 70vh; margin-top: 100px;}
   .start-marker .marker-circle {width: 6px !important; height: 6px !important; background: rgba(0, 235, 225, 0.5) !important;}
   .start-marker.phase2 .title {font-size: 10px !important; font-weight: 100 !important; opacity: 0.8 !important;}
@@ -1241,7 +1240,7 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
 .svg-wrapper {
   position: sticky;
   bottom: -10vh;
-  width: 90vw;      /* 요청하신 90vw */
+  width: 85vw;      /* 요청하신 90vw */
   max-width: 1855px;
   margin: 0 auto;
 
