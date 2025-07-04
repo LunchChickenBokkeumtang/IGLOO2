@@ -441,8 +441,8 @@ header.hide {
     
     /* 모바일에서 링크 클릭 시 포커스 박스 삭제 및 색깔 변경 */
     .mobile-nav ul li a {-webkit-tap-highlight-color: transparent;}
-    .mobile-nav ul li a:focus {outline: none; box-shadow: none; color: #00ebe1;}
-    .mobile-nav ul li a:active {color: #00ebe1; outline: none;}
+    .mobile-nav ul li a:focus {outline: none; box-shadow: none; color: #9f67ff;}
+    .mobile-nav ul li a:active {color: #9f67ff; outline: none;}
     .mobile-nav ul li a::-moz-focus-inner {border: 0;} /* 파이어폭스 전용 */
 
     /* 모바일에서 서치박스 숨김 */
@@ -549,7 +549,7 @@ footer .footerWrap .newsLetter .write .buttonBox button:focus .loader-container 
     100% { transform: translateX(0); }
 }
 
-footer .footerWrap .newsLetter .write .textLogin:focus{outline: none; border-bottom: 1px solid #00EBE1; transition: all 1s;}
+footer .footerWrap .newsLetter .write .textLogin:focus{outline: none; border-bottom: 1px solid #9f67ff; transition: all 1s;}
 footer .footerWrap .imgLine{text-align: center; position: relative; margin-top: 113px;}
 footer .footerWrap .imgLine::before{content: ''; position: absolute; width: 1000%; height: 1px; background: #fff; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.6;}
 footer .footerWrap .navigation{margin: 50px 0 91px; display: flex; justify-content: space-between; width: 550px; font-size: 21px; font-weight: 300; color: #fff; }
@@ -557,7 +557,7 @@ footer .footerWrap .navigation li.show a {transition: all 0.5s ease;}
 footer .footerWrap .navigation li.none a {cursor: default; opacity: 0.35;}
 footer .footerWrap .navigation li.show a:hover{color: #9f67ff;}
 footer .footerWrap .footerBottom{display: flex; justify-content: space-between; align-items: flex-end;}
-footer .footerWrap .footerBottom .footerLogo{ height: 100%; transition: all 1s; position: relative; z-index: 2; color: #00EBE1; overflow: hidden;}
+footer .footerWrap .footerBottom .footerLogo{ height: 100%; transition: all 1s; position: relative; z-index: 2; color: #9f67ff; overflow: hidden;}
 footer .footerWrap .footerBottom .footerLogo img{position: absolute; top: 0%; left: 0%; z-index: 11; width: 100%;}
 footer .footerWrap .footerBottom .footerLogo img:nth-child(1){position: relative; filter: brightness(0) saturate(100%) invert(44%) sepia(16%) saturate(3957%) hue-rotate(227deg) brightness(106%) contrast(107%);}
 footer .footerWrap .footerBottom .footerLogo img:nth-child(2){width: 120%; height: 100%; left: -20%;}
