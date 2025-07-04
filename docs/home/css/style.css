@@ -102,11 +102,12 @@ header .inner nav {display: flex; justify-content: space-between;}
 header .inner nav ul {display: flex; font-size: 16px; margin: 0 auto;}
 header .inner nav ul li {margin: 0 30px;}
 header .inner nav ul li .text {transition: all 0.4s; position: relative; display: inline-block;}
-header .inner nav ul li .text::before {content: ''; width: 0%; height: 1px; position: absolute; left: 0; bottom: -15%; background: #00ebe1; transition: all 0.4s;}
-header .inner nav ul li:hover .text {color: #00ebe1;}
+header .inner nav ul li.show .text::before {content: ''; width: 0%; height: 1px; position: absolute; left: 0; bottom: -15%; background: #00ebe1; transition: all 0.4s;}
+header .inner nav ul li.none .text{cursor: default; opacity: 0.35;}
+header .inner nav ul li.show:hover .text {color: #00ebe1;}
 header .inner nav ul li:hover .text::before {width: 100%;}
 header .inner .SearchBox {display: flex; position: absolute; right: 5%; top: 50%; transform: translateY(-50%); transition: all 0.4s;}
-header .inner .SearchBox .imgBox img {width: auto; transition: all 0.3s;}
+header .inner .SearchBox .imgBox img {width: auto; transition: all 0.3s; opacity: 0.35;}
 header .inner .SearchBox .imgBox:nth-child(2) {margin-left: 30px;}
 
 .header.scrolled {top: 0px;}
@@ -413,10 +414,19 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
       transition: all 0.3s ease;
     }
     
+        .mobile-nav ul li.none a {
+          cursor: default;
+          opacity: 0.35;
+    }
+    
+    .mobile-nav .hamIcon {opacity: 0.35;}
+
+
+
     /* 모바일에서 링크 클릭 시 포커스 박스 삭제 및 색깔 변경 */
     .mobile-nav ul li a {-webkit-tap-highlight-color: transparent;}
-    .mobile-nav ul li a:focus {outline: none; box-shadow: none; color: #00ebe1;}
-    .mobile-nav ul li a:active {color: #00ebe1; outline: none;}
+    .mobile-nav ul li.show a:focus {outline: none; box-shadow: none; color: #00ebe1;}
+    .mobile-nav ul li.show a:active {color: #00ebe1; outline: none;}
     .mobile-nav ul li a::-moz-focus-inner {border: 0;} /* 파이어폭스 전용 */
 
     /* 모바일에서 서치박스 숨김 */
@@ -451,7 +461,7 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
             height: 100%;
             perspective: 1000px;
             transform-style: preserve-3d;
-            z-index: 199;
+            z-index: 1;
         }
 
         .star {
@@ -605,8 +615,8 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
 
 
 .home .container .topBox {margin-bottom: 50px;}
-.home .container .topBox .textBox {display: inline-block; background: #00ebe1; padding: 10px 15px; border-radius: 100px; box-sizing: border-box; opacity: 0;} 
-.home .container .topBox .textBox a {display: flex; justify-content: center; font-size: 14px; align-items: center;}
+.home .container .topBox .textBox {display: inline-block; background: #00ebe1; padding: 10px 15px; border-radius: 100px; box-sizing: border-box; opacity: 0; position: relative; z-index: 9999; cursor: pointer;} 
+.home .container .topBox .textBox a {display: flex; justify-content: center; font-size: 14px; align-items: center; }
 .home .container .topBox .textBox .imgBox {margin-left: 15px; display: flex; align-items: center;}
 .home .container .topBox .textBox .imgBox img {transition: transform 0.2s ease-out; width: 100%; height: 100%;}
 .home .container .mainTitle {font-size: 73px; margin-bottom: 50px; opacity: 0;}
@@ -871,8 +881,6 @@ header .inner .SearchBox .audio-controls .volume-control a img {width: 26px; hei
 /* box design */
 .Excellence .container .boxInner .boxUl .n1{height: 32.5%; margin-top: 45px;}
 .Excellence .container .boxInner .boxUl li .n2{height: 52%; position: relative;}
-.Excellence .container .boxInner .boxUl li .n2::before{content: ''; display: block; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 100; background-image: url(../img/Excellence/boxImg2_1.png); opacity: 0; transition: all 0.5s;}
-.Excellence .container .boxInner .boxUl li .n2:hover::before{opacity: 0.91; transition: all 0.5s;}
 .Excellence .container .boxInner .boxUl li .n3{height: 52%; margin-top: 207px;}
 .Excellence .container .boxInner .boxUl li .n4{height: 9.2%;}
 .Excellence .container .boxInner .boxUl li .n5{height: 32.5%; margin-top: 304px; position: relative;}
@@ -2597,9 +2605,10 @@ footer .footerWrap .newsLetter .write .buttonBox button:focus .loader-container 
 footer .footerWrap .newsLetter .write .textLogin:focus{outline: none; border-bottom: 1px solid #00EBE1; transition: all 1s;}
 footer .footerWrap .imgLine{text-align: center; position: relative; margin-top: 113px;}
 footer .footerWrap .imgLine::before{content: ''; position: absolute; width: 1000%; height: 1px; background: #fff; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.6;}
-footer .footerWrap .navigation{margin: 50px 0 91px; display: flex; justify-content: space-between; width: 550px; font-size: 21px; font-weight: 300; color: fff; opacity: 0.62;}
-footer .footerWrap .navigation li a {transition: all 0.5s ease;}
-footer .footerWrap .navigation li a:hover{color: #00EBE1; }
+footer .footerWrap .navigation{margin: 50px 0 91px; display: flex; justify-content: space-between; width: 550px; font-size: 21px; font-weight: 300; color: #fff; }
+footer .footerWrap .navigation li.show a {transition: all 0.5s ease;}
+footer .footerWrap .navigation li.none a {cursor: default; opacity: 0.35;}
+footer .footerWrap .navigation li.show a:hover{color: #00EBE1; }
 footer .footerWrap .footerBottom{display: flex; justify-content: space-between; align-items: flex-end;}
 footer .footerWrap .footerBottom .footerLogo{ height: 100%; transition: all 1s; position: relative; z-index: 2; color: #00EBE1; overflow: hidden;}
 footer .footerWrap .footerBottom .footerLogo img{position: absolute; top: 0%; left: 0%; z-index: 11; width: 100%;}
@@ -2628,7 +2637,7 @@ footer .footerWrap .footerBottom .number .copy{margin-top:15px;}
   footer .footerWrap .imgLine{margin: 0;}
   footer .footerWrap .imgLine img{width: 35px; height: 35px;}
 
-  footer .footerWrap .navigation{margin: 10 0 31px; width: 50%; font-size: 16px;}
+  footer .footerWrap .navigation{margin: 10px 0 31px; width: 50%; font-size: 16px;}
   footer .footerWrap .footerBottom{margin-top: 0px; width: 98%;}
   footer .footerWrap .footerBottom .footerLogo{width: 70%}
   footer .footerWrap .footerBottom .number{font-size: 11px;}
