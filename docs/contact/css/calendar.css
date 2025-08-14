@@ -35,7 +35,7 @@
   display: flex;
   justify-content: center;
 }
-.datepicker {position: static; top: auto; left: auto; transform: none; position: relative; height: 79%; margin: auto 0;}
+.datepicker { top: auto; left: auto; transform: none; position: relative; height: 87%; margin: auto 0;}
 .datepicker .datepicker-top .titleBox{display: flex; justify-content: space-between; align-items: center;}
 .datepicker .datepicker-top .titleBox .title {font-size: 27px; margin-bottom: 60px; padding-left: 13px;}
 .datepicker .datepicker-top .titleBox .btn-close a{width: 100%; height: 100%;}
